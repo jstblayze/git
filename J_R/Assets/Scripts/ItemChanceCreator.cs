@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemChanceCreator : MonoBehaviour 
+public class ItemChanceCreator
 {
-    private int LootableObectID; // This should match with a container ID OR Enemy ID
-    private int LootChance;
-    private int ItemID;
+    // This should match with a container ID OR Enemy ID (AKA anything lootable) & describes where the item will be found
+    private string LootableObjectName;
+
+    // What are the chances it will appear here?
+    private float LootChance;
+
+    // The item itself
+    private string ItemName;
+
+    // Whether multiple instances of this item can be found
     private bool CanBeDuplicated;
 
     // Constructor for this class
-    public ItemChanceCreator(int LootableObjectID, int ItemID, int LootChance, bool CanBeDuplicated)
+    public ItemChanceCreator(string LootableObjectName, string ItemName, float LootChance, bool CanBeDuplicated)
     {
-        this.LootableObectID = LootableObjectID;
-        this.ItemID = ItemID;
-        this.LootChance = LootChance;
-        this.CanBeDuplicated = CanBeDuplicated;
+        this.LootableObjectName = LootableObjectName;
+        this.ItemName = ItemName; 
+        this.LootChance = LootChance; 
+        this.CanBeDuplicated = CanBeDuplicated; 
     }
 	void Start () 
     {
@@ -24,29 +31,29 @@ public class ItemChanceCreator : MonoBehaviour
     {
 	
 	}
-    public void SetLootableObjectID(int ID)
+    public void SetLootableObjectID(string name)
     {
-        LootableObectID = ID;
+        LootableObjectName = name;
     }
-    public int GetLootableObjectID()
+    public string GetLootableObjectName()
     {
-        return LootableObectID;
+        return LootableObjectName;
     }
-    public void SetLootChance(int Chance)
+    public void SetLootChance(float Chance)
     {
         LootChance = Chance;
     }
-    public int GetLootChance()
+    public float GetLootChance()
     {
         return LootChance;
     }
-    public void SetItemID(int ID)
+    public void SetItemID(string name)
     {
-        ItemID = ID;
+        ItemName = name;
     }
-    public int GetItemID()
+    public string GetItemName()
     {
-        return ItemID;
+        return ItemName;
     }
     public void SetCanHaveDuplicates(bool Duplicates)
     {
