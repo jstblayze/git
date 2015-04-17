@@ -13,9 +13,9 @@ public class LootManager : MonoBehaviour
     {
         //Create Randomizer Database for how many items can be found in a container or on an enemy
         //Position Corresponds to item count 
-        ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 50, 20, 5 }); 
-        ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 20, 20, 20, 20, 20 });
-        ItemCountRandomizerDB.Add("Enemy_Gecko", new int[] { 20, 20, 20, 20, 20 });
+        ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 }); 
+        ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 50, 20, 5 });
+        ItemCountRandomizerDB.Add("Enemy_Gecko", new int[] { 0, 25, 50, 20, 5 });
         ItemCountRandomizerDB.Add("Container_Locker", new int[] { 20, 20, 20, 20, 20 });
         ItemCountRandomizerDB.Add("Container_DeskDrawer", new int[] { 20, 20, 20, 20, 20 });
         ItemCountRandomizerDB.Add("Container_MedicalKit", new int[] { 20, 20, 20, 20, 20 });

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LootableItem : MonoBehaviour 
 {
+    private Text LootDebug;
     private List<string> ItemsInLootableItem = new List<string>();
     public string LootableItemName;
     private LootManager LootManager;
@@ -11,29 +13,28 @@ public class LootableItem : MonoBehaviour
     {
         return LootableItemName;
     }
-    public void OnTriggerEnter(Collider Collider)
-    {
-        if(Collider.gameObject.name.Contains("LootTrigger")) // Would be changed to - If action button is pressed while item is in focus
-        {
-           int RandomizedItemAmount = LootManager.ItemsInLootableObject(gameObject.name);
-           // Something will happen in UI here ( Screen Overlay )
-            if (RandomizedItemAmount != 0)
-            {
-                for (int i = 0; i < RandomizedItemAmount; i++)
-                {
-                    ItemsInLootableItem.Add(LootManager.FindItemInLootableObject(gameObject.name));
-                }
-            }
-            Debug.Log(gameObject.name + " opened! - found " + RandomizedItemAmount + " item(s)!");
-            for (int i = 0; i < ItemsInLootableItem.Count; i++)
-            {
-                Debug.Log((i + 1) + ". " + ItemsInLootableItem[i]);
-            }
-            Debug.Log("------------");
-        }
-    }
 	void Start () 
     {
         LootManager = GameObject.Find("Camera").GetComponent<LootManager>();
+        LootDebug = GameObject.Find("LootDebug").GetComponent<Text>();
 	}
+    public void OnMouseDown()
+    {
+        ItemsInLootableItem = new List<string>();
+        LootDebug.text = "LOOT DEBUG:";
+        int RandomizedItemAmount = LootManager.ItemsInLootableObject(gameObject.name);
+        // Something will happen in UI here ( Screen Overlay )
+        if (RandomizedItemAmount != 0)
+        {
+            for (int i = 0; i < RandomizedItemAmount; i++)
+            {
+                ItemsInLootableItem.Add(LootManager.FindItemInLootableObject(gameObject.name));
+            }
+        }
+        LootDebug.text += "\n" + gameObject.name + " opened!" + "\n" + "Found "  + RandomizedItemAmount + " item(s)!";
+        for (int i = 0; i < ItemsInLootableItem.Count; i++)
+        {
+            LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableItem[i];
+        }
+    }
 }
