@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-// Author : Amina Khalique >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DISCUSS PERCENTAGES WITH LEAD DESIGNER
+// Author : Amina Khalique >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DISCUSS PERCENTAGES WITH LEAD DESIGNER - RYAN G
 using UnityEngine;
 /* Class purpose:
    Manager to keep track of Databases holding info on loot chance of certain items in certain areas 
@@ -74,11 +74,6 @@ public class LootManager : MonoBehaviour
             new ItemChanceData("Vaccine1.0", 10),
             new ItemChanceData("Vaccine2.0", 5)
         });
-        /*For Testing Purposes Only:
-        for(int i = 0; i <= 100; i++)
-        {
-            ItemsInLootableObject("Enemy_Tiger");
-        }*/
     }
     /// <summary>
     /// Purpose: Return number of items found in Lootable Object.
@@ -124,12 +119,29 @@ public class LootManager : MonoBehaviour
     /// <returns></returns>
     public string FindItemInLootableObject(string LootableObjectName) 
     {
-        // Find a way to get an item name based on the loot chance in the ItemChanceDB table
+        string ItemToReturn = "";
+        ItemChanceData[] ItemChances;
+        ItemChanceDB.TryGetValue(LootableObjectName, out ItemChances);
 
-        return "Pistol";
-    }
-    void Update()
-    {
-        
+        int Range = 0;
+        if (ItemChances != null && ItemChances.Length > 0)
+        {
+            for (int i = 0; i < ItemChances.Length; i++)
+            {
+                Range += (int)ItemChances[i].GetLootChance(); // Totals up the loot chance
+            }
+            int Chance = Random.Range(0, Range);
+            int Top = 0;
+            for (int i = 0; i < ItemChances.Length; i++)
+            {
+                Top += (int)ItemChances[i].GetLootChance();
+                if (Chance < Top)
+                {
+                    ItemToReturn = ItemChances[i].GetItemName();
+                    break;
+                }
+            }
+        }
+        return ItemToReturn;
     }
 }

@@ -7,7 +7,6 @@ public class LootableItem : MonoBehaviour
     private List<string> ItemsInLootableItem = new List<string>();
     public string LootableItemName;
     private LootManager LootManager;
-
     public string GetLootableItemName()
     {
         return LootableItemName;
@@ -26,17 +25,15 @@ public class LootableItem : MonoBehaviour
                 }
             }
             Debug.Log(gameObject.name + " opened! - found " + RandomizedItemAmount + " item(s)!");
-            foreach (string Item in ItemsInLootableItem)
+            for (int i = 0; i < ItemsInLootableItem.Count; i++)
             {
-                Debug.Log(Item);
+                Debug.Log((i + 1) + ". " + ItemsInLootableItem[i]);
             }
+            Debug.Log("------------");
         }
     }
 	void Start () 
     {
         LootManager = GameObject.Find("Camera").GetComponent<LootManager>();
-	}
-	void Update () {
-	
 	}
 }
