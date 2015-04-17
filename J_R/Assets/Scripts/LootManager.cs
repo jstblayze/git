@@ -1,21 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-// Author : Amina Khalique
+// Author : Amina Khalique >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DISCUSS PERCENTAGES WITH LEAD DESIGNER
 using UnityEngine;
 /* Class purpose:
-   Creates Databases holding info on loot chance of certain items in certain areas 
-   Contains methods for randomization */
+   Manager to keep track of Databases holding info on loot chance of certain items in certain areas 
+ */
 public class LootManager : MonoBehaviour
 {
-    // Holds percetages of a lootable item having 0, 1, 2, 3, 4, 5 items on it during loot
     private Dictionary<string, int[]> ItemCountRandomizerDB = new Dictionary<string,int[]>();
-    private List<ItemChanceCreator> ItemChanceDB = new List<ItemChanceCreator>();
+    private Dictionary<string, ItemChanceData[]> ItemChanceDB = new Dictionary<string, ItemChanceData[]>();
     void Start()
     {
-        /* Create Randomizer Database for how many items can be found in a container or on an enemy
-           What are the chances you'll find between 0 to 5 items on a "lootable" item?
-           LootableItemName, 0Items, 1Items, 2Items, 3Items, 4Items */
-        ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 50, 20, 5 });
+        //Create Randomizer Database for how many items can be found in a container or on an enemy
+        //Position Corresponds to item count 
+        ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 50, 20, 5 }); 
         ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 20, 20, 20, 20, 20 });
         ItemCountRandomizerDB.Add("Enemy_Gecko", new int[] { 20, 20, 20, 20, 20 });
         ItemCountRandomizerDB.Add("Container_Locker", new int[] { 20, 20, 20, 20, 20 });
@@ -23,65 +21,115 @@ public class LootManager : MonoBehaviour
         ItemCountRandomizerDB.Add("Container_MedicalKit", new int[] { 20, 20, 20, 20, 20 });
 
         // Create Item Chance Database
-        // ItemChanceCreator(int LootableObjectName, int ItemID, int LootChance, bool CanBeDuplicated)
-
-        //LITemName, ItemName, LootChance, Duplicates?                  
         // Tiger
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Tiger", "Pistol", 40, false)); // Means there's a 40% chance a Tiger enemy has a Pistol on him
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Tiger", "PistolBullets", 30, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Tiger", "Vaccine1.0", 15, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Tiger", "Vaccine2.0", 15, false));
-
+        ItemChanceDB.Add("Enemy_Tiger", new ItemChanceData [] 
+        {
+            new ItemChanceData("Pistol", 40), // 40% Chance there's a pistol on a Tiger Enemy
+            new ItemChanceData("PistolBullets", 30),
+            new ItemChanceData("Vaccine1.0",15),
+            new ItemChanceData("Vaccine2.0",15)
+        });
         // Gecko
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Gecko", "Pistol", 15, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Gecko", "MachineGun", 40, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Gecko", "MachineGunBullets", 20, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Gecko", "Vaccine1.0", 20, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Gecko", "Vaccine2.0", 5, false));
-
+        ItemChanceDB.Add("Enemy_Gecko", new ItemChanceData[] 
+        {
+            new ItemChanceData("Pistol", 15),
+            new ItemChanceData("MachineGun", 40),
+            new ItemChanceData("MachineGunBullets",20),
+            new ItemChanceData("Vaccine1.0",20),
+            new ItemChanceData("Vaccine2.0",5)
+        }); 
         // Lizard
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Lizard", "Pistol", 5, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Lizard", "Rifle", 25, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Lizard", "RifleBullets", 10, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Lizard", "Vaccine1.0", 30, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Enemy_Lizard", "Vaccine2.0", 20, false));
-
+        ItemChanceDB.Add("Enemy_Lizard", new ItemChanceData[] 
+        {
+            new ItemChanceData("Pistol", 5),
+            new ItemChanceData("Rifle", 25),
+            new ItemChanceData("RifleBullets",10),
+            new ItemChanceData("Vaccine1.0",30),
+            new ItemChanceData("Vaccine2.0",20)
+        }); 
         // Medical Kit - Only find vaccines
-        ItemChanceDB.Add(new ItemChanceCreator("Container_MedicalKit", "Vaccine1.0", 65, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_MedicalKit", "Vaccine2.0", 35, true));
+        ItemChanceDB.Add("Container_MedicalKit", new ItemChanceData[] 
+        {
+            new ItemChanceData("Vaccine1.0",65),
+            new ItemChanceData("Vaccine2.0",35)
+        }); 
 
-        // Locker - Only find weapons & Bullets - Add Melee after talking with Ryan G >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        ItemChanceDB.Add(new ItemChanceCreator("Container_Locker", "Pistol", 20, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_Locker", "PistolBullets", 30, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_Locker", "MachineGun", 15, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_Locker", "MachineGunBullets", 20, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_Locker", "Rifle", 5, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_Locker", "RifleBullets", 10, true));
-
+        // Locker - Only find weapons & Bullets 
+        ItemChanceDB.Add("Container_Locker", new ItemChanceData[] 
+        {
+            new ItemChanceData("Pistol", 20),
+            new ItemChanceData("PistolBullets", 30),
+            new ItemChanceData("MachineGun",15),
+            new ItemChanceData("MachineGunBullets",20),
+            new ItemChanceData("Rifle",5),
+            new ItemChanceData("RifleBullets", 10)
+        }); 
         // Desk Drawer - Only find Bullets, Keys, Vaccines
-        ItemChanceDB.Add(new ItemChanceCreator("Container_DeskDrawer", "PistolBullets", 30, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_DeskDrawer", "RifleBullets", 10, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_DeskDrawer", "MachineGunBullets", 20, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_DeskDrawer", "Zone_A_Key", 25, false));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_DeskDrawer", "Vaccine1.0", 10, true));
-        ItemChanceDB.Add(new ItemChanceCreator("Container_DeskDrawer", "Vaccine2.0", 5, false));
+        ItemChanceDB.Add("Container_DeskDrawer", new ItemChanceData[] 
+        {
+            new ItemChanceData("PistolBullets", 30),
+            new ItemChanceData("MachineGunBullets",20),
+            new ItemChanceData("RifleBullets", 10),
+            new ItemChanceData("Zone_A_Key", 25),
+            new ItemChanceData("Vaccine1.0", 10),
+            new ItemChanceData("Vaccine2.0", 5)
+        });
+        /*For Testing Purposes Only:
+        for(int i = 0; i <= 100; i++)
+        {
+            ItemsInLootableObject("Enemy_Tiger");
+        }*/
     }
-    // >>>>>>>>>>>>>>>>>>>>>>>>
+    /// <summary>
+    /// Purpose: Return number of items found in Lootable Object.
+    /// When a LootableObject is opened, how many items will you find? 
+    /// How many items you will find is dependent on the ItemCountRandomizerDB
+    /// </summary>
+    /// <param name="LootableObjectName"></param>
+    /// <returns></returns>
+    /// 
     public int ItemsInLootableObject(string LootableObjectName) 
     {
+        // Need to double check functionality with a better test - Luki >>>>>>>>>>>
+        int NumberOfItemsInLoot = -1;
         int[] RandomItemCount;
-        ItemCountRandomizerDB.TryGetValue(LootableObjectName, out RandomItemCount); //gotten the appropriate array
-        // How do I create a randomizer?
-        return 2; 
+        ItemCountRandomizerDB.TryGetValue(LootableObjectName, out RandomItemCount);
+        int Range = 0;   
+        if(RandomItemCount != null && RandomItemCount.Length > 0)
+        {
+            for (int i = 0; i < RandomItemCount.Length; i++)
+            {
+                Range += RandomItemCount[i];
+            }
+            int Chance = Random.Range(0, Range); // 100 %
+            int Top = 0;
+            for (int i = 0; i < RandomItemCount.Length; i++)
+            {
+                Top += RandomItemCount[i];
+                if (Chance < Top)
+                {
+                    NumberOfItemsInLoot = i;
+                    break;
+                }
+            }
+        }
+        return NumberOfItemsInLoot;
     }
-    // >>>>>>>>>>>>>>>>>>>>>>>>>
+    /// <summary>
+    /// Purpose: Returns the name of an item found on the Lootable Object
+    /// This is based on "Loot Chance". Refer to to ItemChanceDB.
+    /// Eg: The chances of finding a pistol on a TigerEnemy is 40%
+    /// </summary>
+    /// <param name="LootableObjectName"></param>
+    /// <returns></returns>
     public string FindItemInLootableObject(string LootableObjectName) 
     {
         // Find a way to get an item name based on the loot chance in the ItemChanceDB table
+
         return "Pistol";
     }
     void Update()
     {
-
+        
     }
 }
