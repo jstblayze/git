@@ -42,7 +42,7 @@ public class InventoryItem : MonoBehaviour
         switch(ItemType)
         {
             default:
-                Debug.Log(">>>>>>>>>>>>>>>>>Something went wrong");
+                Debug.Log("Something has been");
                 break;
             case ItemType.Pistol:
                 LootImage.sprite = Pistol;

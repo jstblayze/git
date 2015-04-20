@@ -16,7 +16,7 @@ public class LootManager : MonoBehaviour
     public void ResetInventoryScreen()
     {
         List<GameObject> Children = new List<GameObject>();
-        foreach (Transform Child in (GameObject.Find("InventoryPanel").GetComponentInChildren<Transform>()))
+        foreach (Transform Child in (GameObject.Find("LootInventoryPanel").GetComponentInChildren<Transform>()))
         {
             Children.Add(Child.gameObject);
         }
@@ -38,7 +38,7 @@ public class LootManager : MonoBehaviour
     }
     void Start()
     {
-        //Position Corresponds to item count 
+        //Position Corresponds to item count                 0  1   2   3   4 
         ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 }); 
         ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 50, 20, 5 });
         ItemCountRandomizerDB.Add("Enemy_Gecko", new int[] { 0, 25, 50, 20, 5 });
