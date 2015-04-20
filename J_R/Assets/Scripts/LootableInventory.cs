@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿//Author: Amina Khalique
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
 public class LootableInventory : MonoBehaviour
 {
     public RectTransform Panel; // Whoever thought of this is a fucking moron - call it a PANEL! 

@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿// Author: Amina Khalique
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
 public class LootableObject : MonoBehaviour 
 {
     private bool IsLooted;
@@ -42,7 +42,6 @@ public class LootableObject : MonoBehaviour
         {
             LootDebug.text = "LOOT DEBUG:";
             int RandomizedItemAmount = LootManager.ItemsInLootableObject(gameObject.name);
-            // Something will happen in UI here ( Screen Overlay )
             if (RandomizedItemAmount != 0)
             {
                 for (int i = 0; i < RandomizedItemAmount; i++)
@@ -53,7 +52,6 @@ public class LootableObject : MonoBehaviour
             LootDebug.text += "\n" + gameObject.name + " opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
             for (int i = 0; i < ItemsInLootableObject.Count; i++)
             {
-                //LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableObject[i];
                 Inventory.AddToCanvas(ItemsInLootableObject[i]);
             }
             LootManager.AddToOpenedLootList(this);
@@ -65,7 +63,6 @@ public class LootableObject : MonoBehaviour
             LootDebug.text += "\n" + gameObject.name + " re-opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
             for (int i = 0; i < ItemsInLootableObject.Count; i++)
             {
-                //LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableObject[i];
                 Inventory.AddToCanvas(ItemsInLootableObject[i]);
             }
         }

@@ -1,11 +1,8 @@
-﻿using System.Collections;
+﻿// Author : Amina Khalique 
+using System.Collections;
 using System.Collections.Generic;
-// Author : Amina Khalique >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DISCUSS PERCENTAGES WITH LEAD DESIGNER - RYAN G
 using UnityEngine;
 using UnityEngine.UI;
-/* Class purpose:
-   Manager to keep track of Databases holding info on loot chance of certain items in certain areas 
- */
 public class LootManager : MonoBehaviour
 {
     List<LootableObject> OpenedLootableObjects = new List<LootableObject>();
@@ -41,7 +38,6 @@ public class LootManager : MonoBehaviour
     }
     void Start()
     {
-        //Create Randomizer Database for how many items can be found in a container or on an enemy
         //Position Corresponds to item count 
         ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 }); 
         ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 50, 20, 5 });
@@ -56,8 +52,8 @@ public class LootManager : MonoBehaviour
         {
             new ItemChanceData("Pistol", 40), // 40% Chance there's a pistol on a Tiger Enemy
             new ItemChanceData("PistolBullets", 30),
-            new ItemChanceData("Vaccine1.0",15),
-            new ItemChanceData("Vaccine2.0",15)
+            new ItemChanceData("Vaccine1",15),
+            new ItemChanceData("Vaccine2",15)
         });
         // Gecko
         ItemChanceDB.Add("Enemy_Gecko", new ItemChanceData[] 
@@ -65,8 +61,8 @@ public class LootManager : MonoBehaviour
             new ItemChanceData("Pistol", 15),
             new ItemChanceData("MachineGun", 40),
             new ItemChanceData("MachineGunBullets",20),
-            new ItemChanceData("Vaccine1.0",20),
-            new ItemChanceData("Vaccine2.0",5)
+            new ItemChanceData("Vaccine1",20),
+            new ItemChanceData("Vaccine2",5)
         }); 
         // Lizard
         ItemChanceDB.Add("Enemy_Lizard", new ItemChanceData[] 
@@ -74,14 +70,14 @@ public class LootManager : MonoBehaviour
             new ItemChanceData("Pistol", 5),
             new ItemChanceData("Rifle", 25),
             new ItemChanceData("RifleBullets",10),
-            new ItemChanceData("Vaccine1.0",30),
-            new ItemChanceData("Vaccine2.0",20)
+            new ItemChanceData("Vaccine1",30),
+            new ItemChanceData("Vaccine2",20)
         }); 
         // Medical Kit - Only find vaccines
         ItemChanceDB.Add("Container_MedicalKit", new ItemChanceData[] 
         {
-            new ItemChanceData("Vaccine1.0",65),
-            new ItemChanceData("Vaccine2.0",35)
+            new ItemChanceData("Vaccine1",65),
+            new ItemChanceData("Vaccine2",35)
         }); 
 
         // Locker - Only find weapons & Bullets 
@@ -101,21 +97,12 @@ public class LootManager : MonoBehaviour
             new ItemChanceData("MachineGunBullets",20),
             new ItemChanceData("RifleBullets", 10),
             new ItemChanceData("Zone_A_Key", 25),
-            new ItemChanceData("Vaccine1.0", 10),
-            new ItemChanceData("Vaccine2.0", 5)
+            new ItemChanceData("Vaccine1", 10),
+            new ItemChanceData("Vaccine2", 5)
         });
     }
-    /// <summary>
-    /// Purpose: Return number of items found in Lootable Object.
-    /// When a LootableObject is opened, how many items will you find? 
-    /// How many items you will find is dependent on the ItemCountRandomizerDB
-    /// </summary>
-    /// <param name="LootableObjectName"></param>
-    /// <returns></returns>
-    /// 
     public int ItemsInLootableObject(string LootableObjectName) 
     {
-        // Need to double check functionality with a better test - Luki >>>>>>>>>>>
         int NumberOfItemsInLoot = -1;
         int[] RandomItemCount;
         ItemCountRandomizerDB.TryGetValue(LootableObjectName, out RandomItemCount);
@@ -140,13 +127,6 @@ public class LootManager : MonoBehaviour
         }
         return NumberOfItemsInLoot;
     }
-    /// <summary>
-    /// Purpose: Returns the name of an item found on the Lootable Object
-    /// This is based on "Loot Chance". Refer to to ItemChanceDB.
-    /// Eg: The chances of finding a pistol on a TigerEnemy is 40%
-    /// </summary>
-    /// <param name="LootableObjectName"></param>
-    /// <returns></returns>
     public string FindItemInLootableObject(string LootableObjectName) 
     {
         string ItemToReturn = "";
@@ -158,7 +138,7 @@ public class LootManager : MonoBehaviour
         {
             for (int i = 0; i < ItemChances.Length; i++)
             {
-                Range += (int)ItemChances[i].GetLootChance(); // Totals up the loot chance
+                Range += (int)ItemChances[i].GetLootChance(); 
             }
             int Chance = Random.Range(0, Range);
             int Top = 0;
