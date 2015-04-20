@@ -7,8 +7,23 @@ using UnityEngine;
  */
 public class LootManager : MonoBehaviour
 {
+    List<LootableObject> OpenedLootableObjects = new List<LootableObject>();
     private Dictionary<string, int[]> ItemCountRandomizerDB = new Dictionary<string,int[]>();
     private Dictionary<string, ItemChanceData[]> ItemChanceDB = new Dictionary<string, ItemChanceData[]>();
+    
+    public void AddToOpenedLootList(LootableObject LootableObject)
+    {
+        OpenedLootableObjects.Add(LootableObject);
+    }
+    public void ResetAllOpenedLoot()
+    {
+        foreach(LootableObject LootObject in OpenedLootableObjects)
+        {
+            LootObject.SetLooted(false);
+            LootObject.ResetItems();
+        }
+        OpenedLootableObjects = new List<LootableObject>();
+    }
     void Start()
     {
         //Create Randomizer Database for how many items can be found in a container or on an enemy
