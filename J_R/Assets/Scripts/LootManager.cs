@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 // Author : Amina Khalique >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DISCUSS PERCENTAGES WITH LEAD DESIGNER - RYAN G
 using UnityEngine;
+using UnityEngine.UI;
 /* Class purpose:
    Manager to keep track of Databases holding info on loot chance of certain items in certain areas 
  */
@@ -15,14 +16,28 @@ public class LootManager : MonoBehaviour
     {
         OpenedLootableObjects.Add(LootableObject);
     }
+    public void ResetInventoryScreen()
+    {
+        List<GameObject> Children = new List<GameObject>();
+        foreach (Transform Child in (GameObject.Find("InventoryPanel").GetComponentInChildren<Transform>()))
+        {
+            Children.Add(Child.gameObject);
+        }
+        foreach (GameObject Child in Children)
+        {
+            Destroy(Child);
+        }
+    }
     public void ResetAllOpenedLoot()
     {
-        foreach(LootableObject LootObject in OpenedLootableObjects)
+        ResetInventoryScreen();
+        foreach (LootableObject LootObject in OpenedLootableObjects)
         {
             LootObject.SetLooted(false);
             LootObject.ResetItems();
         }
         OpenedLootableObjects = new List<LootableObject>();
+        GameObject.Find("LootDebug").GetComponent<Text>().text = "LOOT DEBUG";
     }
     void Start()
     {

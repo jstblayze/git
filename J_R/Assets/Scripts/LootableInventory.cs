@@ -24,8 +24,7 @@ public class LootableInventory : MonoBehaviour
         InventoryItem InventoryItem = PreFab_InventoryItem.GetComponent<InventoryItem>();
         InventoryItem.SetLootName(ItemName);
 
-        GameObject IItem = (GameObject)Instantiate(PreFab_InventoryItem,Vector3.zero, Quaternion.identity);
-        
+        GameObject IItem = (GameObject)Instantiate(PreFab_InventoryItem, new Vector3(5.5f,5.5f), Quaternion.identity);
         IItem.transform.SetParent(Panel.transform);
     }
 }

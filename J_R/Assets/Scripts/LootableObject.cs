@@ -37,6 +37,7 @@ public class LootableObject : MonoBehaviour
     }
     public void OnMouseDown()
     {
+        LootManager.ResetInventoryScreen();
         if (!IsLooted)
         {
             LootDebug.text = "LOOT DEBUG:";
@@ -49,10 +50,10 @@ public class LootableObject : MonoBehaviour
                     ItemsInLootableObject.Add(LootManager.FindItemInLootableObject(gameObject.name));
                 }
             }
-            LootDebug.text += "\n" + gameObject.name + " opened!" + "\n" + "Found " + RandomizedItemAmount + " item(s)!";
+            LootDebug.text += "\n" + gameObject.name + " opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
             for (int i = 0; i < ItemsInLootableObject.Count; i++)
             {
-                LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableObject[i];
+                //LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableObject[i];
                 Inventory.AddToCanvas(ItemsInLootableObject[i]);
             }
             LootManager.AddToOpenedLootList(this);
@@ -61,10 +62,11 @@ public class LootableObject : MonoBehaviour
         else
         {
             LootDebug.text = "LOOT DEBUG:";
-            LootDebug.text += "\n" + gameObject.name + " opened!" + "\n" + "Found " + ItemsInLootableObject.Count + " item(s)!";
+            LootDebug.text += "\n" + gameObject.name + " re-opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
             for (int i = 0; i < ItemsInLootableObject.Count; i++)
             {
-                LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableObject[i];
+                //LootDebug.text += "\n" + (i + 1) + ". " + ItemsInLootableObject[i];
+                Inventory.AddToCanvas(ItemsInLootableObject[i]);
             }
         }
     }
