@@ -4,18 +4,6 @@ using System.Collections;
 using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour
 {
-    public enum ItemType
-    {
-        Pistol,
-        MachineGun,
-        Rifle,
-        PistolBullets,
-        MachineGunBullets,
-        RifleBullets,
-        Vaccine1,
-        Vaccine2,
-        Zone_A_Key
-    }
     public Sprite Pistol;
     public Sprite MachineGun;
     public Sprite Rifle;
@@ -38,51 +26,39 @@ public class InventoryItem : MonoBehaviour
     public void SetLootImage()
     {
         // Convert string to enum
-        ItemType ItemType = (ItemType)System.Enum.Parse(typeof(ItemType), LootName);
-        switch(ItemType)
+        Enums.Item Item = (Enums.Item)System.Enum.Parse(typeof(Enums.Item), LootName);
+        switch(Item)
         {
             default:
-                Debug.Log("Something has been");
+                Debug.Log("InventoryItem.cs: Item Not Recognized");
                 break;
-            case ItemType.Pistol:
+            case Enums.Item.Pistol:
                 LootImage.sprite = Pistol;
                 break;
-            case ItemType.MachineGun:
+            case Enums.Item.MachineGun:
                 LootImage.sprite = MachineGun;
                 break;
-            case ItemType.Rifle:
+            case Enums.Item.Rifle:
                 LootImage.sprite = Rifle;
                 break;
-            case ItemType.PistolBullets:
+            case Enums.Item.PistolBullets:
                 LootImage.sprite = PistolBullets;
                 break;
-            case ItemType.MachineGunBullets:
+            case Enums.Item.MachineGunBullets:
                 LootImage.sprite = MachineGunBullets;
                 break;
-            case ItemType.RifleBullets:
+            case Enums.Item.RifleBullets:
                 LootImage.sprite = RifleBullets;
                 break;
-            case ItemType.Vaccine1:
+            case Enums.Item.Vaccine1:
                 LootImage.sprite = Vaccine1;
                 break;
-            case ItemType.Vaccine2:
+            case Enums.Item.Vaccine2:
                 LootImage.sprite = Vaccine2;
                 break;
-            case ItemType.Zone_A_Key:
+            case Enums.Item.Zone_A_Key:
                 LootImage.sprite = Zone_A_Key;
                 break;
         }
     }
-	void Start () 
-    {
-        //LootText.text = "BLAHADasljdhflaksjdf";
-        /*Transform[] ts = gameObject.GetComponentsInChildren<Transform>();
-        foreach(Transform T in ts)
-        {
-            Debug.Log(T.name);
-        }*/
-	}
-	void Update () 
-    {
-	}
 }
