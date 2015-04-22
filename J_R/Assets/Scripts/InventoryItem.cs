@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public class InventoryItem : MonoBehaviour
 {
     public Sprite Pistol;
@@ -58,6 +59,21 @@ public class InventoryItem : MonoBehaviour
                 break;
             case Enums.Item.Zone_A_Key:
                 LootImage.sprite = Zone_A_Key;
+                break;
+        }
+    }
+    public void OnPointerClick(PointerEventData data)
+    {
+        Debug.Log("Pointer Click is being activated!!!");
+        switch (data.button)
+        {
+            case PointerEventData.InputButton.Left:
+                Debug.Log("Left Clicked");
+                break;
+            case PointerEventData.InputButton.Right:
+                Debug.Log("Right Clicked");
+                break;
+            case PointerEventData.InputButton.Middle:
                 break;
         }
     }

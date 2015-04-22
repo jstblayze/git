@@ -15,4 +15,25 @@ public class Enums
         Vaccine2,
         Zone_A_Key
     }
+    public enum Character
+    {
+        Jackson,
+        Ryley
+    }
+    public enum Enemy
+    {
+        Tiger,
+        Gecko,
+        Komodo,
+        Lizard
+    }
+    public enum Weapon
+    {
+        Pistol,
+        MachineGun,
+        Rifle,
+        Claws,
+        MetalPipe,
+        Knife
+    }
 }

@@ -16,11 +16,13 @@ public class Movement : MonoBehaviour
         {
             Debug.Log("Toggle Inventory Screen Off");
             InventoryScreen.SetActive(false);
+            GameManager.InventoryScreenOpen = false;
         }
         if(Input.GetKeyDown("y")) // Ask matt if it would be here?
         {
             Debug.Log("Toggle Inventory Screen On");
             InventoryScreen.SetActive(true);
+            GameManager.InventoryScreenOpen = true;
         }
        
     }

@@ -33,6 +33,7 @@ public class LootableObject : MonoBehaviour
     }
     public void OnMouseDown()
     {
+        GameManager.LootableScreenInventoryOpen = true;
         GameManager.LootManager.ResetInventoryScreen();
         if (!IsLooted)
         {
