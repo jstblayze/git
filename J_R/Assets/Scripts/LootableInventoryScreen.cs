@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-public class LootableInventory : MonoBehaviour
+public class LootableInventoryScreen : MonoBehaviour
 {
     public RectTransform Panel; // Whoever thought of this is a fucking moron - call it a PANEL! 
     public GameObject PreFab_InventoryItem;

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class LootManager : MonoBehaviour
 {
+    public Text LootDebug;
     List<LootableObject> OpenedLootableObjects = new List<LootableObject>();
     private Dictionary<string, int[]> ItemCountRandomizerDB = new Dictionary<string,int[]>();
     private Dictionary<string, ItemChanceData[]> ItemChanceDB = new Dictionary<string, ItemChanceData[]>();
@@ -16,7 +17,7 @@ public class LootManager : MonoBehaviour
     public void ResetInventoryScreen()
     {
         List<GameObject> Children = new List<GameObject>();
-        foreach (Transform Child in (GameObject.Find("LootInventoryPanel").GetComponentInChildren<Transform>()))
+        foreach (Transform Child in (GameManager.LootableInventoryScreen.GetComponentInChildren<Transform>()))
         {
             Children.Add(Child.gameObject);
         }
@@ -34,7 +35,7 @@ public class LootManager : MonoBehaviour
             LootObject.ResetItems();
         }
         OpenedLootableObjects = new List<LootableObject>();
-        GameObject.Find("LootDebug").GetComponent<Text>().text = "LOOT DEBUG";
+        //LootDebug.text = "LOOT DEBUG";
     }
     void Start()
     {

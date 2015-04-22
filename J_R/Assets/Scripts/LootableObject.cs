@@ -9,15 +9,11 @@ public class LootableObject : MonoBehaviour
     private Text LootDebug;
     public List<string> ItemsInLootableObject = new List<string>();
     private string LootableObjectName;
-    private LootManager LootManager;
-    private LootableInventory Inventory;
 	void Start () 
     {
-        LootManager = GameObject.Find("Camera").GetComponent<LootManager>();
         LootDebug = GameObject.Find("LootDebug").GetComponent<Text>();
         IsLooted = false;
         LootableObjectName = gameObject.name;
-        Inventory = GameObject.Find("Camera").GetComponent<LootableInventory>(); // will change to player later
 	}
     public string GetLootableObjectName()
     {
@@ -37,24 +33,24 @@ public class LootableObject : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        LootManager.ResetInventoryScreen();
+        GameManager.LootManager.ResetInventoryScreen();
         if (!IsLooted)
         {
             LootDebug.text = "LOOT DEBUG:";
-            int RandomizedItemAmount = LootManager.ItemsInLootableObject(gameObject.name);
+            int RandomizedItemAmount = GameManager.LootManager.ItemsInLootableObject(gameObject.name);
             if (RandomizedItemAmount != 0)
             {
                 for (int i = 0; i < RandomizedItemAmount; i++)
                 {
-                    ItemsInLootableObject.Add(LootManager.FindItemInLootableObject(gameObject.name));
+                    ItemsInLootableObject.Add(GameManager.LootManager.FindItemInLootableObject(gameObject.name));
                 }
             }
             LootDebug.text += "\n" + gameObject.name + " opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
             for (int i = 0; i < ItemsInLootableObject.Count; i++)
             {
-                Inventory.AddToCanvas(ItemsInLootableObject[i]);
+                GameManager.LootableInventoryScreen.AddToCanvas(ItemsInLootableObject[i]);
             }
-            LootManager.AddToOpenedLootList(this);
+            GameManager.LootManager.AddToOpenedLootList(this);
             IsLooted = true;
         }
         else
@@ -63,7 +59,7 @@ public class LootableObject : MonoBehaviour
             LootDebug.text += "\n" + gameObject.name + " re-opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
             for (int i = 0; i < ItemsInLootableObject.Count; i++)
             {
-                Inventory.AddToCanvas(ItemsInLootableObject[i]);
+                GameManager.LootableInventoryScreen.AddToCanvas(ItemsInLootableObject[i]);
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿// Author: Amina Khalique
 using UnityEngine;
 using System.Collections;
-public class Character 
+public class Character : MonoBehaviour
 {
     private string CharacterName;
     private float CharacterHealth = 100f;

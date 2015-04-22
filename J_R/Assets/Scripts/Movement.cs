@@ -1,4 +1,5 @@
 ﻿//Author: Amina Khalique
+//>>>!Matthew Wayne - Combine this script with your code
 using UnityEngine;
 using System.Collections;
 public class Movement : MonoBehaviour 

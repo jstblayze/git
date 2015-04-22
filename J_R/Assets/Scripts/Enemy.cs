@@ -1,4 +1,5 @@
 ﻿// Author: Amina Khalique
+// >>>!Agbolade Blaize : Combine this script with your code
 using UnityEngine;
 using System.Collections;
 public class Enemy : MonoBehaviour 

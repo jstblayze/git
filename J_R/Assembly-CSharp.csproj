@@ -49,12 +49,13 @@
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\Scripts\InventoryScreen.cs" />
      <Compile Include="Assets\Scripts\ItemChanceData.cs" />
      <Compile Include="Assets\Scripts\LootManager.cs" />
-     <Compile Include="Assets\Scripts\LootableInventory.cs" />
+     <Compile Include="Assets\Scripts\LootableInventoryScreen.cs" />
      <Compile Include="Assets\Scripts\LootableObject.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
  <Reference Include="UnityEngine.UI">
