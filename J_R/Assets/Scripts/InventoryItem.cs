@@ -62,19 +62,8 @@ public class InventoryItem : MonoBehaviour
                 break;
         }
     }
-    public void OnPointerClick(PointerEventData data)
+    public void OnMouseDown() // You want to communicate this information to 
     {
-        Debug.Log("Pointer Click is being activated!!!");
-        switch (data.button)
-        {
-            case PointerEventData.InputButton.Left:
-                Debug.Log("Left Clicked");
-                break;
-            case PointerEventData.InputButton.Right:
-                Debug.Log("Right Clicked");
-                break;
-            case PointerEventData.InputButton.Middle:
-                break;
-        }
+        Debug.Log("Clicked!!!");
     }
 }

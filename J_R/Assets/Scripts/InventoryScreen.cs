@@ -120,8 +120,8 @@ public class InventoryScreen : MonoBehaviour
     {
         Debug.Log("Inventory Item Selected : " + Position);
         // Make sure selection changes happen here
-        if(GameManager.InventoryScreenOpen && !GameManager.LootableScreenInventoryOpen)
-        {
+        //if(GameManager.InventoryScreenOpen && !GameManager.LootableScreenInventoryOpen)
+        //{
             DisplayInventoryItemStats();
             /*
              * Enums.Item Item = (Enums.Item)System.Enum.Parse(typeof(Enums.Item), LootName);
@@ -159,7 +159,7 @@ public class InventoryScreen : MonoBehaviour
                 break;
         }
              */
-        }
+        //}
     }
     public void DisplayInventoryItemStats()
     {
