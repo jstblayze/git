@@ -9,8 +9,10 @@ public class LootableObject : MonoBehaviour
     private Text LootDebug;
     public List<string> ItemsInLootableObject = new List<string>();
     private string LootableObjectName;
+    private GameManager GameManager;
 	void Start () 
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         LootDebug = GameObject.Find("LootDebug").GetComponent<Text>();
         IsLooted = false;
         LootableObjectName = gameObject.name;
@@ -33,7 +35,8 @@ public class LootableObject : MonoBehaviour
     }
     public void OnMouseDown()
     {
-        GameManager.LootableScreenInventoryOpen = true;
+        GameManager.GetLootScreen().SetActive(true);
+        GameManager.CurrentlyActiveUI = Enums.ActiveUI.LootScreen;
         GameManager.LootManager.ResetInventoryScreen();
         if (!IsLooted)
         {

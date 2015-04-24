@@ -36,4 +36,11 @@ public class Enums
         MetalPipe,
         Knife
     }
+    public enum ActiveUI
+    {
+        None,
+        LootScreen,
+        InventoryScreen,
+        PauseScreen
+    }
 }

@@ -6,39 +6,21 @@ using UnityEngine.UI;
 public class LootManager : MonoBehaviour
 {
     public Text LootDebug;
+
     List<LootableObject> OpenedLootableObjects = new List<LootableObject>();
+
     private Dictionary<string, int[]> ItemCountRandomizerDB = new Dictionary<string,int[]>();
     private Dictionary<string, ItemChanceData[]> ItemChanceDB = new Dictionary<string, ItemChanceData[]>();
+    private Dictionary<string, InventoryItemData> ItemDataDB = new Dictionary<string, InventoryItemData>();
     
-    public void AddToOpenedLootList(LootableObject LootableObject)
+    void Awake()
     {
-        OpenedLootableObjects.Add(LootableObject);
-    }
-    public void ResetInventoryScreen()
-    {
-        List<GameObject> Children = new List<GameObject>();
-        foreach (Transform Child in (GameManager.LootableInventoryScreen.GetComponentInChildren<Transform>()))
-        {
-            Children.Add(Child.gameObject);
-        }
-        foreach (GameObject Child in Children)
-        {
-            Destroy(Child);
-        }
-    }
-    public void ResetAllOpenedLoot()
-    {
-        ResetInventoryScreen();
-        foreach (LootableObject LootObject in OpenedLootableObjects)
-        {
-            LootObject.SetLooted(false);
-            LootObject.ResetItems();
-        }
-        OpenedLootableObjects = new List<LootableObject>();
-        //LootDebug.text = "LOOT DEBUG";
-    }
-    void Start()
-    {
+        // Create Item Data Database
+        ItemDataDB.Add("Pistol", new InventoryItemData("Pistol", "It's a gun you dumbass", "10 Pistol Bullets"));
+        ItemDataDB.Add("Rifle", new InventoryItemData("Rifle", "Something I'd like to shoot you with right now", "20 Rifle Ammo"));
+        ItemDataDB.Add("MachineGun", new InventoryItemData("MachineGun", "Jesus can you stop waving that thing around?!", "Machine Gun Ammo"));
+        ItemDataDB.Add("Vaccine1", new InventoryItemData("Vaccine1", "It cures your health/infection", "Costs 20HP to use if your Ryley and costs 500,000 to use if you're jackson LOL jk"));
+
         //Position Corresponds to item count                 0  1   2   3   4 
         ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 }); 
         ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 50, 20, 5 });
@@ -101,6 +83,53 @@ public class LootManager : MonoBehaviour
             new ItemChanceData("Vaccine1", 10),
             new ItemChanceData("Vaccine2", 5)
         });
+
+       
+    }
+    public void AddToOpenedLootList(LootableObject LootableObject)
+    {
+        OpenedLootableObjects.Add(LootableObject);
+    }
+    public void ResetInventoryScreen()
+    {
+        List<GameObject> Children = new List<GameObject>();
+        foreach (Transform Child in (GameManager.LootableInventoryScreen.GetComponentInChildren<Transform>()))
+        {
+            Children.Add(Child.gameObject);
+        }
+        foreach (GameObject Child in Children)
+        {
+            Destroy(Child);
+        }
+    }
+    public void ResetAllOpenedLoot()
+    {
+        ResetInventoryScreen();
+        foreach (LootableObject LootObject in OpenedLootableObjects)
+        {
+            LootObject.SetLooted(false);
+            LootObject.ResetItems();
+        }
+        OpenedLootableObjects = new List<LootableObject>();
+        //LootDebug.text = "LOOT DEBUG";
+    }
+    public string GetItemStats(string ItemName)
+    {
+        InventoryItemData InventoryItemData;
+        ItemDataDB.TryGetValue(ItemName, out InventoryItemData);
+        return InventoryItemData.GetStats();
+    }
+    public string GetItemDescription(string ItemName)
+    {
+        InventoryItemData InventoryItemData;
+        ItemDataDB.TryGetValue(ItemName, out InventoryItemData);
+        return InventoryItemData.GetDescription();
+    }
+    public InventoryItemData GetItemData(string ItemName)
+    {
+        InventoryItemData InventoryItemData;
+        ItemDataDB.TryGetValue(ItemName, out InventoryItemData);
+        return InventoryItemData;
     }
     public int ItemsInLootableObject(string LootableObjectName) 
     {

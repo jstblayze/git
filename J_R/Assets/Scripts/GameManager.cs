@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     public static InventoryScreen InventoryScreen;
     public static LootableInventoryScreen LootableInventoryScreen;
     public static LootManager LootManager;
+    public static Enums.ActiveUI CurrentlyActiveUI;
 
-    public static bool LootableScreenInventoryOpen;
-    public static bool InventoryScreenOpen;
-    public static bool PauseScreenOpen;
+    public  GameObject Inventory;
+    public  GameObject Loot;
 
 	void Awake () // Runs before anything else
     {
@@ -24,5 +24,30 @@ public class GameManager : MonoBehaviour
 	}
 	void Update () 
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            switch(CurrentlyActiveUI)
+            {
+                case Enums.ActiveUI.InventoryScreen:
+                    Inventory.SetActive(false);
+                    CurrentlyActiveUI = Enums.ActiveUI.None;
+                    break;
+                case Enums.ActiveUI.LootScreen:
+                    Loot.SetActive(false);
+                    CurrentlyActiveUI = Enums.ActiveUI.None;
+                    break;
+                case Enums.ActiveUI.PauseScreen:
+                    CurrentlyActiveUI = Enums.ActiveUI.None;
+                    break;
+            }
+        }
 	}
+    public GameObject GetInventoryScreen()
+    {
+        return Inventory;
+    }
+    public GameObject GetLootScreen()
+    {
+        return Loot;
+    }
 }

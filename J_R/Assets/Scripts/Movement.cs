@@ -12,17 +12,17 @@ public class Movement : MonoBehaviour
 	}
     void FixedUpdate() // Do not delete these contents 
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Toggle Inventory Screen Off");
             InventoryScreen.SetActive(false);
-            GameManager.InventoryScreenOpen = false;
-        }
-        if(Input.GetKeyDown("y")) // Ask matt if it would be here?
+            GameManager.CurrentlyActiveUI = Enums.ActiveUI.None;
+        }*/
+        if(Input.GetKeyDown("y") && GameManager.CurrentlyActiveUI != Enums.ActiveUI.LootScreen) // >>>! Matthew Wayne : Would these input controls be here?
         {
             Debug.Log("Toggle Inventory Screen On");
             InventoryScreen.SetActive(true);
-            GameManager.InventoryScreenOpen = true;
+            GameManager.CurrentlyActiveUI = Enums.ActiveUI.InventoryScreen;
         }
        
     }

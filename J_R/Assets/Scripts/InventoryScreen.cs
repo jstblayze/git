@@ -35,13 +35,13 @@ public class InventoryScreen : MonoBehaviour
 
         Inventory.Add("Weapons", new InventoryItemData[] 
         {
-            new InventoryItemData("Pistol","It's a gun you dumbass", "10 Pistol Bullets"),
-            new InventoryItemData("Rifle", "Something I'd like to shoot you with right now", "20 Rifle Ammo"),
-            new InventoryItemData("MachineGun", "Jesus can you stop waving that thing around?!", "Machine Gun Ammo")
+            GameManager.LootManager.GetItemData("Pistol"),
+            GameManager.LootManager.GetItemData("Rifle"),
+            GameManager.LootManager.GetItemData("MachineGun")
         });
         Inventory.Add("Items", new InventoryItemData[]
         {
-            new InventoryItemData("Vaccine1", "It cures your health/infection", "Costs 20HP to use if your Ryley and costs 500,000 to use if you're jackson LOL jk")
+            GameManager.LootManager.GetItemData("Vaccine1")
         });
 	}
 	void Update ()
@@ -85,6 +85,7 @@ public class InventoryScreen : MonoBehaviour
             if (pair.Key == Category)
             {
                 CurrentlyLookAt = pair.Value;
+                break;
             }
         }
         if (CurrentlyLookAt.Length != 0)
@@ -116,52 +117,21 @@ public class InventoryScreen : MonoBehaviour
             Destroy(Child);
         }
     }
-    public void SelectInventoryItem(string Position)
+    public void SelectInventoryItem(string ItemName, Image InventoryImage)
     {
-        Debug.Log("Inventory Item Selected : " + Position);
-        // Make sure selection changes happen here
-        //if(GameManager.InventoryScreenOpen && !GameManager.LootableScreenInventoryOpen)
-        //{
-            DisplayInventoryItemStats();
-            /*
-             * Enums.Item Item = (Enums.Item)System.Enum.Parse(typeof(Enums.Item), LootName);
-        switch(Item)
+        Debug.Log("SelectedInventoryItem:" + ItemName + ".");
+        InventoryStatsImage.sprite = InventoryImage.sprite;
+
+        // Get the description and the text based on the name
+        for(int i = 0; i < CurrentlyLookAt.Length; i++)
         {
-            default:
-                Debug.Log("InventoryItem.cs: Item Not Recognized");
+            Debug.Log("Trying to match:" + CurrentlyLookAt[i].GetItemName() + " with " + ItemName + ".");
+            if(CurrentlyLookAt[i].GetItemName() == ItemName)
+            {
+                InventoryStatsDescription.text = CurrentlyLookAt[i].GetDescription();
+                InventoryStatsStats.text = CurrentlyLookAt[i].GetStats();
                 break;
-            case Enums.Item.Pistol:
-                LootImage.sprite = Pistol;
-                break;
-            case Enums.Item.MachineGun:
-                LootImage.sprite = MachineGun;
-                break;
-            case Enums.Item.Rifle:
-                LootImage.sprite = Rifle;
-                break;
-            case Enums.Item.PistolBullets:
-                LootImage.sprite = PistolBullets;
-                break;
-            case Enums.Item.MachineGunBullets:
-                LootImage.sprite = MachineGunBullets;
-                break;
-            case Enums.Item.RifleBullets:
-                LootImage.sprite = RifleBullets;
-                break;
-            case Enums.Item.Vaccine1:
-                LootImage.sprite = Vaccine1;
-                break;
-            case Enums.Item.Vaccine2:
-                LootImage.sprite = Vaccine2;
-                break;
-            case Enums.Item.Zone_A_Key:
-                LootImage.sprite = Zone_A_Key;
-                break;
+            }
         }
-             */
-        //}
-    }
-    public void DisplayInventoryItemStats()
-    {
     }
 }

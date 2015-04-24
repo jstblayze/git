@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InventoryItemData 
+public class InventoryItemData
 {
     private string ItemName;
     private string Description;
@@ -23,5 +23,11 @@ public class InventoryItemData
     public string GetDescription()
     {
         return Description;
+    }
+    public override string ToString()
+    {
+        return "ItemName:" + ItemName + "\n" +
+                "Description:" + Description + "\n" +
+                "Stats:" + Stats + "\n";
     }
 }

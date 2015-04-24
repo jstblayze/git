@@ -3,8 +3,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class InventoryItem : MonoBehaviour
-{
+public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
+{ 
     public Sprite Pistol;
     public Sprite MachineGun;
     public Sprite Rifle;
@@ -16,16 +16,23 @@ public class InventoryItem : MonoBehaviour
     public Sprite Zone_A_Key;
     public Text LootText;
     public Image LootImage;
+    
     private string LootName;
 
     public void SetLootName(string Name)
     {
         LootName = Name;
         LootText.text = LootName;
+        Debug.Log(LootName);
         SetLootImage();
+    }
+    public string GetLootName()
+    {
+        return LootName; 
     }
     public void SetLootImage()
     {
+        Debug.Log("SetLootImage() called");
         // Convert string to enum
         Enums.Item Item = (Enums.Item)System.Enum.Parse(typeof(Enums.Item), LootName);
         switch(Item)
@@ -62,8 +69,22 @@ public class InventoryItem : MonoBehaviour
                 break;
         }
     }
-    public void OnMouseDown() // You want to communicate this information to 
+    public void OnMouseDown()  
     {
-        Debug.Log("Clicked!!!");
+        // Check which screen is active
+        switch(GameManager.CurrentlyActiveUI)
+        {
+            case Enums.ActiveUI.InventoryScreen:
+                Debug.Log("OnMouseDown:" + LootName + ".");
+                //GameManager.InventoryScreen.SelectInventoryItem(LootName, LootImage);
+                GameManager.InventoryScreen.SelectInventoryItem(LootText.text, LootImage);
+                break;
+            case Enums.ActiveUI.LootScreen:
+                break;
+        }
+    }
+    public override string ToString()
+    {
+        return "InventoryItem: " + LootName;
     }
 }
