@@ -20,7 +20,10 @@ public class LootManager : MonoBehaviour
         ItemDataDB.Add("Rifle", new InventoryItemData("Rifle", "Something I'd like to shoot you with right now", "20 Rifle Ammo"));
         ItemDataDB.Add("MachineGun", new InventoryItemData("MachineGun", "Jesus can you stop waving that thing around?!", "Machine Gun Ammo"));
         ItemDataDB.Add("Vaccine1", new InventoryItemData("Vaccine1", "It cures your health/infection", "Costs 20HP to use if your Ryley and costs 500,000 to use if you're jackson LOL jk"));
-
+        ItemDataDB.Add("Zone1", new InventoryItemData("Zone1", "Map of Zone1", "The one with the enemy hiding in the washroom!"));
+        ItemDataDB.Add("Zone2", new InventoryItemData("Zone2", "Map of Zone2", "The one with the shitload of enemies"));
+        ItemDataDB.Add("Zone3", new InventoryItemData("Zone3", "Map of Zone3", "The one with a big puddle lol"));
+        
         //Position Corresponds to item count                 0  1   2   3   4 
         ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 }); 
         ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 50, 20, 5 });

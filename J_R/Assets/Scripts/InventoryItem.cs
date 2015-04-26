@@ -14,6 +14,9 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
     public Sprite Vaccine1;
     public Sprite Vaccine2;
     public Sprite Zone_A_Key;
+    public Sprite Zone1;
+    public Sprite Zone2;
+    public Sprite Zone3;
     public Text LootText;
     public Image LootImage;
     
@@ -23,7 +26,6 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
     {
         LootName = Name;
         LootText.text = LootName;
-        Debug.Log(LootName);
         SetLootImage();
     }
     public string GetLootName()
@@ -32,7 +34,6 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
     }
     public void SetLootImage()
     {
-        Debug.Log("SetLootImage() called");
         // Convert string to enum
         Enums.Item Item = (Enums.Item)System.Enum.Parse(typeof(Enums.Item), LootName);
         switch(Item)
@@ -66,6 +67,16 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
                 break;
             case Enums.Item.Zone_A_Key:
                 LootImage.sprite = Zone_A_Key;
+                break;
+                // Maps
+            case Enums.Item.Zone1:
+                LootImage.sprite = Zone1;
+                break;
+            case Enums.Item.Zone2:
+                LootImage.sprite = Zone2;
+                break;
+            case Enums.Item.Zone3:
+                LootImage.sprite = Zone3;
                 break;
         }
     }

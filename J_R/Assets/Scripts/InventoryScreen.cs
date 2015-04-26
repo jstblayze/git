@@ -11,6 +11,19 @@ public class InventoryScreen : MonoBehaviour
 
     public Text No_Items;
     public GameObject PreFab_InventoryItem;
+    public GameObject PreFab_InventoryItemPanel;
+
+    public GameObject Weapons;
+    public GameObject Items;
+    public GameObject Map;
+
+    public Sprite None;
+    public Sprite Arrow;
+
+    public GameObject MapScreen;
+    public Image MapImage;
+    public Image MapClose;
+
     enum InventoryCategory
     {
         Weapons,
@@ -23,26 +36,30 @@ public class InventoryScreen : MonoBehaviour
     public Text Health;
     public Text Infection;
     public RectTransform InventoryWindowItems;
-
-    private int CurrentSelectedCategory;
-    private int CurrentSelectedRowNumber;
-    private int CurrentEquippedItem;
     void Start () 
     {
         No_Items.gameObject.SetActive(false);
-        CurrentSelectedCategory = 1; // Weapon
-        CurrentSelectedRowNumber = 1; // First item in the category
+        MapScreen.SetActive(false);
 
         Inventory.Add("Weapons", new InventoryItemData[] 
         {
             GameManager.LootManager.GetItemData("Pistol"),
             GameManager.LootManager.GetItemData("Rifle"),
-            GameManager.LootManager.GetItemData("MachineGun")
+            GameManager.LootManager.GetItemData("MachineGun") 
         });
         Inventory.Add("Items", new InventoryItemData[]
         {
             GameManager.LootManager.GetItemData("Vaccine1")
         });
+        Inventory.Add("Map", new InventoryItemData[] 
+        {
+            GameManager.LootManager.GetItemData("Zone1"),
+            GameManager.LootManager.GetItemData("Zone2"),
+            GameManager.LootManager.GetItemData("Zone3")
+        });
+
+        //SelectInventoryCategory("Weapons");
+        //Weapons.GetComponent<Button>().Select();
 	}
 	void Update ()
     {
@@ -59,6 +76,7 @@ public class InventoryScreen : MonoBehaviour
 	}
     public void SelectInventoryCategory(string Category) 
     {
+        
         No_Items.gameObject.SetActive(false);
         CurrentlyLookAt = null;
         InventoryCategory InventoryCategory = (InventoryCategory)
@@ -66,20 +84,54 @@ public class InventoryScreen : MonoBehaviour
         switch(InventoryCategory)
         {
             case InventoryCategory.Weapons:
+                ShowArrow(Weapons);
+                HideArrow(Items);
+                HideArrow(Map);
                 DisplayInventoryCategory(Category);
                 break;
             case InventoryCategory.Items:
+                ShowArrow(Items);
+                HideArrow(Weapons);
+                HideArrow(Map);
                 DisplayInventoryCategory(Category);
                 break;
             case InventoryCategory.Map:
-                // Do Something Different
+                ShowArrow(Map);
+                HideArrow(Weapons);
+                HideArrow(Items);
+                DisplayInventoryCategory(Category);
                 break;
+        }
+    }
+    public void ShowArrow(GameObject Category)
+    {
+        Debug.Log("Show Arrow: " + Category.name);
+        foreach(Transform Image in Category.GetComponentInChildren<Transform>())
+        {
+            Debug.Log(Image.gameObject.name);
+            if(Image.gameObject.name.Contains("CategoryArrow"))
+            {
+                Image.gameObject.GetComponent<Image>().sprite = Arrow;
+                break;
+            }
+        }
+    }
+    public void HideArrow(GameObject Category)
+    {
+        Debug.Log("Hide Arrow: " + Category.name);
+        foreach (Transform Image in Category.GetComponentInChildren<Transform>())
+        {
+            Debug.Log(Image.gameObject.name);
+            if (Image.gameObject.name.Contains("CategoryArrow"))
+            {
+                Image.gameObject.GetComponent<Image>().sprite = None;
+                break;
+            }
         }
     }
     public void DisplayInventoryCategory(string Category)
     {
         ClearInventoryItemsFromCategory();
-        // When you select a new category you should clear it
         foreach (KeyValuePair<string, InventoryItemData[]> pair in Inventory)
         {
             if (pair.Key == Category)
@@ -88,15 +140,21 @@ public class InventoryScreen : MonoBehaviour
                 break;
             }
         }
-        if (CurrentlyLookAt.Length != 0)
+        if (CurrentlyLookAt != null && CurrentlyLookAt.Length != 0)
         {
             for (int i = 0; i < CurrentlyLookAt.Length; i++)
             {
-                InventoryItem InventoryItem = PreFab_InventoryItem.GetComponent<InventoryItem>();
+                InventoryItem InventoryItem = PreFab_InventoryItemPanel.GetComponent<InventoryItem>();
                 InventoryItem.SetLootName(CurrentlyLookAt[i].GetItemName());
 
-                GameObject IItem = (GameObject)Instantiate(PreFab_InventoryItem, new Vector3(5.5f, 5.5f), Quaternion.identity);
-                IItem.transform.SetParent(InventoryWindowItems.transform);
+                GameObject IIP = (GameObject)Instantiate(PreFab_InventoryItemPanel, transform.position, Quaternion.identity);
+                IIP.transform.SetParent(InventoryWindowItems.transform);
+
+                if(i == CurrentlyLookAt.Length -1)
+                {
+                    IIP.GetComponent<Button>().Select(); // This isn't working the first time
+                    SelectInventoryItem(CurrentlyLookAt[i].GetItemName(), InventoryItem.LootImage);
+                }
             }
         }
         else // clear it to be safe
@@ -104,6 +162,7 @@ public class InventoryScreen : MonoBehaviour
             ClearInventoryItemsFromCategory();
             No_Items.gameObject.SetActive(true);
         }
+       
     }
     public void ClearInventoryItemsFromCategory()
     {
@@ -119,13 +178,9 @@ public class InventoryScreen : MonoBehaviour
     }
     public void SelectInventoryItem(string ItemName, Image InventoryImage)
     {
-        Debug.Log("SelectedInventoryItem:" + ItemName + ".");
         InventoryStatsImage.sprite = InventoryImage.sprite;
-
-        // Get the description and the text based on the name
         for(int i = 0; i < CurrentlyLookAt.Length; i++)
         {
-            Debug.Log("Trying to match:" + CurrentlyLookAt[i].GetItemName() + " with " + ItemName + ".");
             if(CurrentlyLookAt[i].GetItemName() == ItemName)
             {
                 InventoryStatsDescription.text = CurrentlyLookAt[i].GetDescription();
@@ -133,5 +188,14 @@ public class InventoryScreen : MonoBehaviour
                 break;
             }
         }
+    }
+    public void MapImagePressed(GameObject Image)
+    {
+        MapScreen.SetActive(true);
+        MapImage.sprite = Image.GetComponent<Image>().sprite;
+    }
+    public void CloseMapPressed()
+    {
+        MapScreen.SetActive(false);
     }
 }

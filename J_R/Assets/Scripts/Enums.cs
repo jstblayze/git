@@ -13,7 +13,11 @@ public class Enums
         RifleBullets,
         Vaccine1,
         Vaccine2,
-        Zone_A_Key
+        Zone_A_Key,
+        // Map Items
+        Zone1,
+        Zone2,
+        Zone3
     }
     public enum Character
     {
