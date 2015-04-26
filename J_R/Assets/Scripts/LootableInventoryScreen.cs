@@ -28,12 +28,5 @@ public class LootableInventoryScreen : MonoBehaviour
 
         GameObject IIP = (GameObject)Instantiate(PreFab_InventoryItemPanel, transform.position, Quaternion.identity);
         IIP.transform.SetParent(Panel.transform);
-        ///
-
-        /*InventoryItem InventoryItem = PreFab_InventoryItem.GetComponent<InventoryItem>();
-        InventoryItem.SetLootName(ItemName);
-
-        GameObject IItem = (GameObject)Instantiate(PreFab_InventoryItem, new Vector3(5.5f,5.5f), Quaternion.identity);
-        IItem.transform.SetParent(Panel.transform);*/
     }
 }

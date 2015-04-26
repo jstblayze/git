@@ -76,9 +76,9 @@ public class InventoryScreen : MonoBehaviour
 	}
     public void SelectInventoryCategory(string Category) 
     {
-        
         No_Items.gameObject.SetActive(false);
         CurrentlyLookAt = null;
+        // Change String Category into Inventory Category using Enum.Parse System Method
         InventoryCategory InventoryCategory = (InventoryCategory)
             System.Enum.Parse(typeof(InventoryCategory), Category);
         switch(InventoryCategory)

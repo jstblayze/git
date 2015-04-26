@@ -33,61 +33,72 @@ public class LootManager : MonoBehaviour
         ItemCountRandomizerDB.Add("Container_MedicalKit", new int[] { 20, 20, 20, 20, 20 });
 
         // Create Item Chance Database
+        // If you fimd an item that cannot be duplicated - 
+        // - return the item that can be duplicated - that has the highest chance of duplicating instead
         // Tiger
         ItemChanceDB.Add("Enemy_Tiger", new ItemChanceData [] 
         {
-            new ItemChanceData("Pistol", 40), // 40% Chance there's a pistol on a Tiger Enemy
-            new ItemChanceData("PistolBullets", 30),
-            new ItemChanceData("Vaccine1",15),
-            new ItemChanceData("Vaccine2",15)
+            new ItemChanceData("Pistol", 40, false, 
+                new ItemChanceData("PistolBullets", 30, true, null)), // 40% Chance there's a pistol on a Tiger Enemy
+            new ItemChanceData("PistolBullets", 30, true, null),
+            new ItemChanceData("Vaccine1",15, true, null),
+            new ItemChanceData("Vaccine2",15, true, null)
         });
         // Gecko
         ItemChanceDB.Add("Enemy_Gecko", new ItemChanceData[] 
         {
-            new ItemChanceData("Pistol", 15),
-            new ItemChanceData("MachineGun", 40),
-            new ItemChanceData("MachineGunBullets",20),
-            new ItemChanceData("Vaccine1",20),
-            new ItemChanceData("Vaccine2",5)
+            new ItemChanceData("Pistol", 15, false, 
+                new ItemChanceData("MachineGunBullets", 20, true, null)),
+            new ItemChanceData("MachineGun", 40, false,
+                new ItemChanceData("Vaccine1", 20, true, null)),
+            new ItemChanceData("MachineGunBullets",20, true, null),
+            new ItemChanceData("Vaccine1",20, true, null),
+            new ItemChanceData("Vaccine2",5, true, null)
         }); 
         // Lizard
         ItemChanceDB.Add("Enemy_Lizard", new ItemChanceData[] 
         {
-            new ItemChanceData("Pistol", 5),
-            new ItemChanceData("Rifle", 25),
-            new ItemChanceData("RifleBullets",10),
-            new ItemChanceData("Vaccine1",30),
-            new ItemChanceData("Vaccine2",20)
+            new ItemChanceData("Pistol", 5, false,
+                new ItemChanceData("Vaccine1", 30, true, null)),
+            new ItemChanceData("Rifle", 25, false, 
+                new ItemChanceData("Vaccine2", 20, true, null)),
+            new ItemChanceData("RifleBullets", 10, true, null),
+            new ItemChanceData("Vaccine1",30, true, null),
+            new ItemChanceData("Vaccine2",20, true, null)
         }); 
         // Medical Kit - Only find vaccines
         ItemChanceDB.Add("Container_MedicalKit", new ItemChanceData[] 
         {
-            new ItemChanceData("Vaccine1",65),
-            new ItemChanceData("Vaccine2",35)
+            new ItemChanceData("Vaccine1",65, false, 
+                new ItemChanceData("Vaccine2", 35, true, null)),
+            new ItemChanceData("Vaccine2",35, true, null)
         }); 
 
         // Locker - Only find weapons & Bullets 
         ItemChanceDB.Add("Container_Locker", new ItemChanceData[] 
         {
-            new ItemChanceData("Pistol", 20),
-            new ItemChanceData("PistolBullets", 30),
-            new ItemChanceData("MachineGun",15),
-            new ItemChanceData("MachineGunBullets",20),
-            new ItemChanceData("Rifle",5),
-            new ItemChanceData("RifleBullets", 10)
+            new ItemChanceData("Pistol", 20, false,
+                new ItemChanceData("PistolBullets", 30, true, null)),
+            new ItemChanceData("PistolBullets", 30, true, null),
+            new ItemChanceData("MachineGun",15, false, 
+                new ItemChanceData("RifleBullets", 10, true, null)),
+            new ItemChanceData("MachineGunBullets", 20, false,
+                new ItemChanceData("PistolBullets", 30, true, null)),
+            new ItemChanceData("Rifle", 5, false,
+                new ItemChanceData("RifleBullets", 10, true, null)),
+            new ItemChanceData("RifleBullets", 10, true, null)
         }); 
         // Desk Drawer - Only find Bullets, Keys, Vaccines
         ItemChanceDB.Add("Container_DeskDrawer", new ItemChanceData[] 
         {
-            new ItemChanceData("PistolBullets", 30),
-            new ItemChanceData("MachineGunBullets",20),
-            new ItemChanceData("RifleBullets", 10),
-            new ItemChanceData("Zone_A_Key", 25),
-            new ItemChanceData("Vaccine1", 10),
-            new ItemChanceData("Vaccine2", 5)
+            new ItemChanceData("PistolBullets", 30, true, null),
+            new ItemChanceData("MachineGunBullets", 20, true, null),
+            new ItemChanceData("RifleBullets", 10, true, null),
+            new ItemChanceData("Zone_A_Key", 25, false,
+                new ItemChanceData("PistolBullets", 30, true, null)),
+            new ItemChanceData("Vaccine1", 10, true, null),
+            new ItemChanceData("Vaccine2", 5, true, null)
         });
-
-       
     }
     public void AddToOpenedLootList(LootableObject LootableObject)
     {
@@ -114,7 +125,6 @@ public class LootManager : MonoBehaviour
             LootObject.ResetItems();
         }
         OpenedLootableObjects = new List<LootableObject>();
-        //LootDebug.text = "LOOT DEBUG";
     }
     public string GetItemStats(string ItemName)
     {
@@ -160,7 +170,7 @@ public class LootManager : MonoBehaviour
         }
         return NumberOfItemsInLoot;
     }
-    public string FindItemInLootableObject(string LootableObjectName) 
+    public string FindItemInLootableObject(string LootableObjectName, List<string> CurrentItemsInLoot)  // Returns ONE item based on chance
     {
         string ItemToReturn = "";
         ItemChanceData[] ItemChances;
@@ -171,7 +181,7 @@ public class LootManager : MonoBehaviour
         {
             for (int i = 0; i < ItemChances.Length; i++)
             {
-                Range += (int)ItemChances[i].GetLootChance(); 
+                Range += (int)ItemChances[i].GetLootChance();
             }
             int Chance = Random.Range(0, Range);
             int Top = 0;
@@ -180,8 +190,32 @@ public class LootManager : MonoBehaviour
                 Top += (int)ItemChances[i].GetLootChance();
                 if (Chance < Top)
                 {
-                    ItemToReturn = ItemChances[i].GetItemName();
-                    break;
+                    if (CurrentItemsInLoot.Count == 0) // No chance for duplicates
+                    {
+                        return ItemChances[i].GetItemName();
+                    }
+                    else if(CurrentItemsInLoot.Count > 0)
+                    {
+                        // If duplicates are not allowed for this item
+                        if ((ItemChances[i].DuplicatesAllowed() == false)) 
+                        {
+                            // Check if there is a duplicate
+                            foreach (string Loot in CurrentItemsInLoot)
+                            {
+                                if (Loot == ItemChances[i].GetItemName())
+                                {
+                                    // Duplicate found - return the item attached as ReturnInstead
+                                    return ItemChances[i].GetReturnInsteadData().GetItemName();
+                                }
+                            }
+                            // No duplicates found - Can return this
+                            return ItemChances[i].GetItemName();
+                        }
+                        else // Duplicates of this item allowed - can return this
+                        {
+                            return ItemChances[i].GetItemName();
+                        }
+                    }
                 }
             }
         }

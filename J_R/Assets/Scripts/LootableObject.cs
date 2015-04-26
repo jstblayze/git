@@ -35,6 +35,7 @@ public class LootableObject : MonoBehaviour
     }
     public void OnMouseDown()
     {
+        Debug.ClearDeveloperConsole();
         GameManager.GetLootScreen().SetActive(true);
         GameManager.CurrentlyActiveUI = Enums.ActiveUI.LootScreen;
         GameManager.LootManager.ResetInventoryScreen();
@@ -46,7 +47,7 @@ public class LootableObject : MonoBehaviour
             {
                 for (int i = 0; i < RandomizedItemAmount; i++)
                 {
-                    ItemsInLootableObject.Add(GameManager.LootManager.FindItemInLootableObject(gameObject.name));
+                    ItemsInLootableObject.Add(GameManager.LootManager.FindItemInLootableObject(gameObject.name, ItemsInLootableObject));
                 }
             }
             LootDebug.text += "\n" + gameObject.name + " opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
