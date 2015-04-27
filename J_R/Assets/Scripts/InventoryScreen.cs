@@ -28,7 +28,7 @@ public class InventoryScreen : MonoBehaviour
     {
         Weapons,
         Items,
-        Map
+        Maps
     }
     private Dictionary<string, InventoryItemData[]> Inventory = new Dictionary<string, InventoryItemData[]>();
     private InventoryItemData[] CurrentlyLookAt;
@@ -36,11 +36,9 @@ public class InventoryScreen : MonoBehaviour
     public Text Health;
     public Text Infection;
     public RectTransform InventoryWindowItems;
-    void Start () 
+    
+    void Awake()
     {
-        No_Items.gameObject.SetActive(false);
-        MapScreen.SetActive(false);
-
         Inventory.Add("Weapons", new InventoryItemData[] 
         {
             GameManager.LootManager.GetItemData("Pistol"),
@@ -51,13 +49,17 @@ public class InventoryScreen : MonoBehaviour
         {
             GameManager.LootManager.GetItemData("Vaccine1")
         });
-        Inventory.Add("Map", new InventoryItemData[] 
+        Inventory.Add("Maps", new InventoryItemData[] 
         {
             GameManager.LootManager.GetItemData("Zone1"),
             GameManager.LootManager.GetItemData("Zone2"),
             GameManager.LootManager.GetItemData("Zone3")
         });
-
+    }
+    void Start () 
+    {
+        No_Items.gameObject.SetActive(false);
+        MapScreen.SetActive(false);
         //SelectInventoryCategory("Weapons");
         //Weapons.GetComponent<Button>().Select();
 	}
@@ -95,7 +97,7 @@ public class InventoryScreen : MonoBehaviour
                 HideArrow(Map);
                 DisplayInventoryCategory(Category);
                 break;
-            case InventoryCategory.Map:
+            case InventoryCategory.Maps:
                 ShowArrow(Map);
                 HideArrow(Weapons);
                 HideArrow(Items);
@@ -105,10 +107,8 @@ public class InventoryScreen : MonoBehaviour
     }
     public void ShowArrow(GameObject Category)
     {
-        Debug.Log("Show Arrow: " + Category.name);
         foreach(Transform Image in Category.GetComponentInChildren<Transform>())
         {
-            Debug.Log(Image.gameObject.name);
             if(Image.gameObject.name.Contains("CategoryArrow"))
             {
                 Image.gameObject.GetComponent<Image>().sprite = Arrow;
@@ -118,10 +118,8 @@ public class InventoryScreen : MonoBehaviour
     }
     public void HideArrow(GameObject Category)
     {
-        Debug.Log("Hide Arrow: " + Category.name);
         foreach (Transform Image in Category.GetComponentInChildren<Transform>())
         {
-            Debug.Log(Image.gameObject.name);
             if (Image.gameObject.name.Contains("CategoryArrow"))
             {
                 Image.gameObject.GetComponent<Image>().sprite = None;
@@ -134,9 +132,22 @@ public class InventoryScreen : MonoBehaviour
         ClearInventoryItemsFromCategory();
         foreach (KeyValuePair<string, InventoryItemData[]> pair in Inventory)
         {
+            Debug.Log(pair.Key + " " + Category);
             if (pair.Key == Category)
             {
+                Debug.Log("Match!");
                 CurrentlyLookAt = pair.Value;
+                if (CurrentlyLookAt != null && CurrentlyLookAt.Length > 0)
+                {
+                    foreach (InventoryItemData ICD in CurrentlyLookAt)
+                    {
+                        Debug.Log(ICD.ToString());
+                    }
+                }
+                else
+                {
+                    Debug.Log("CurrentlyLookAt is null");
+                }
                 break;
             }
         }
@@ -146,6 +157,7 @@ public class InventoryScreen : MonoBehaviour
             {
                 InventoryItem InventoryItem = PreFab_InventoryItemPanel.GetComponent<InventoryItem>();
                 InventoryItem.SetLootName(CurrentlyLookAt[i].GetItemName());
+                InventoryItem.SetPickupOrDrop(Enums.Item.Drop);
 
                 GameObject IIP = (GameObject)Instantiate(PreFab_InventoryItemPanel, transform.position, Quaternion.identity);
                 IIP.transform.SetParent(InventoryWindowItems.transform);
@@ -162,7 +174,6 @@ public class InventoryScreen : MonoBehaviour
             ClearInventoryItemsFromCategory();
             No_Items.gameObject.SetActive(true);
         }
-       
     }
     public void ClearInventoryItemsFromCategory()
     {
@@ -197,5 +208,45 @@ public class InventoryScreen : MonoBehaviour
     public void CloseMapPressed()
     {
         MapScreen.SetActive(false);
+    }
+    public void AddItemToInventory(string ItemName, string Category)
+    {
+        InventoryItemData[] Data = Inventory[Category];
+        if(Data != null)
+        {
+            InventoryItemData[] Temp = new InventoryItemData[Data.Length + 1];
+            // Copy over all values from Data to Temp
+            for (int i = 0; i < Temp.Length; i++)
+            {
+                if (i != Temp.Length - 1)
+                {
+                    Temp[i] = Data[i];
+                }
+                else
+                {
+                    Temp[i] = GameManager.LootManager.GetItemData(ItemName);
+                    Debug.Log("Temp[i]" + Temp[i].ToString());
+                }
+            }
+            Inventory[Category] = Temp;
+        }
+    }
+    public void RemoveItemFromInventory(string ItemName, string Category)
+    {
+        InventoryItemData[] Data = Inventory[Category];
+        if (Data != null)
+        {
+            InventoryItemData[] Temp = new InventoryItemData[Data.Length - 1];
+            // Copy over all values from Data to Temp
+            for (int i = 0; i < Data.Length; i++)
+            {
+                if (!(Data[i].GetItemName() == ItemName))
+                {
+                    Temp[i] = Data[i];
+                }
+            }
+            Inventory[Category] = Temp;
+            DisplayInventoryCategory(Category);
+        }
     }
 }

@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour
         }*/
         if(Input.GetKeyDown("y") && GameManager.CurrentlyActiveUI != Enums.ActiveUI.LootScreen) // >>>! Matthew Wayne : Would these input controls be here?
         {
-            Debug.Log("Toggle Inventory Screen On");
             InventoryScreen.SetActive(true);
             GameManager.CurrentlyActiveUI = Enums.ActiveUI.InventoryScreen;
         }

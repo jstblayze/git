@@ -25,6 +25,7 @@ public class LootableInventoryScreen : MonoBehaviour
     {
         InventoryItem InventoryItem = PreFab_InventoryItemPanel.GetComponent<InventoryItem>();
         InventoryItem.SetLootName(ItemName);
+        InventoryItem.SetPickupOrDrop(Enums.Item.Pickup);
 
         GameObject IIP = (GameObject)Instantiate(PreFab_InventoryItemPanel, transform.position, Quaternion.identity);
         IIP.transform.SetParent(Panel.transform);

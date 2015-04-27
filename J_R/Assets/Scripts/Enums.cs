@@ -17,7 +17,9 @@ public class Enums
         // Map Items
         Zone1,
         Zone2,
-        Zone3
+        Zone3,
+        Pickup,
+        Drop
     }
     public enum Character
     {

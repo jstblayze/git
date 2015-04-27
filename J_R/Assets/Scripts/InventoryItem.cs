@@ -17,10 +17,15 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
     public Sprite Zone1;
     public Sprite Zone2;
     public Sprite Zone3;
+    public Sprite Pickup;
+    public Sprite Drop;
+
     public Text LootText;
     public Image LootImage;
+    public Image PickUpOrDrop;
     
     private string LootName;
+    private string Category;
 
     public void SetLootName(string Name)
     {
@@ -28,9 +33,25 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
         LootText.text = LootName;
         SetLootImage();
     }
+    public string GetCategory()
+    {
+        return Category;
+    }
     public string GetLootName()
     {
         return LootName; 
+    }
+    public void SetPickupOrDrop(Enums.Item PickDrop)
+    {
+        switch(PickDrop)
+        {
+            case Enums.Item.Pickup:
+                PickUpOrDrop.sprite = Pickup;
+                break;
+            case Enums.Item.Drop:
+                PickUpOrDrop.sprite = Drop;
+                break;
+        }
     }
     public void SetLootImage()
     {
@@ -97,5 +118,30 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
     public override string ToString()
     {
         return "InventoryItem: " + LootName;
+    }
+    public void PickupDropImagePressed(Text ItemName)
+    {
+        Debug.Log("PickupDropImagePressed! with: " + ItemName.text);
+        if (ItemName.text.Contains("Vaccine") || ItemName.text.Contains("Key"))
+        {
+            Category = "Items";
+        }
+        else if (ItemName.text.Contains("Zone"))
+        {
+            Category = "Maps";
+        }
+        else Category = "Weapons";
+        if(PickUpOrDrop.sprite.name.Contains("Cross"))
+        {
+            Debug.Log("Attempting to Drop Item");
+            GameManager.InventoryScreen.RemoveItemFromInventory(ItemName.text, Category);
+        }
+        else if(PickUpOrDrop.sprite.name.Contains("Checkmark")) 
+        {
+            Debug.Log("Attempting to Pick up Item");
+            GameManager.InventoryScreen.AddItemToInventory(ItemName.text, Category);
+            // Destroy from loot screen
+            Destroy(this);
+        }
     }
 }

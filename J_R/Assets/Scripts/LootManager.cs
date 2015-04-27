@@ -16,10 +16,22 @@ public class LootManager : MonoBehaviour
     void Awake()
     {
         // Create Item Data Database
+        // Weapons
         ItemDataDB.Add("Pistol", new InventoryItemData("Pistol", "It's a gun you dumbass", "10 Pistol Bullets"));
         ItemDataDB.Add("Rifle", new InventoryItemData("Rifle", "Something I'd like to shoot you with right now", "20 Rifle Ammo"));
         ItemDataDB.Add("MachineGun", new InventoryItemData("MachineGun", "Jesus can you stop waving that thing around?!", "Machine Gun Ammo"));
-        ItemDataDB.Add("Vaccine1", new InventoryItemData("Vaccine1", "It cures your health/infection", "Costs 20HP to use if your Ryley and costs 500,000 to use if you're jackson LOL jk"));
+        ItemDataDB.Add("MachineGunBullets", new InventoryItemData("MachineGunBullets", "Dat Machine Gun Bullet Pack yo", "Machine Gun Ammo 30"));
+        ItemDataDB.Add("RifleBullets", new InventoryItemData("RifleBullets", "Dat Rifle Bullet Pack yo", "Rifle Ammo 50"));
+        ItemDataDB.Add("PistolBullets", new InventoryItemData("PistolBullets", "Dat Pistol Bullet Pack yo", "Pistol Ammo 15"));
+        ItemDataDB.Add("Zone_A_Key", new InventoryItemData("Zone_A_Key", "Opens up scifi gate A", "Isn't it pretty?"));
+        
+        //Items
+        ItemDataDB.Add("Vaccine1", new InventoryItemData("Vaccine1", "It cures your health/infection", 
+            "I've got a lovely bunch of coconuts, doobey doobey...Health restored!"));
+        ItemDataDB.Add("Vaccine2", new InventoryItemData("Vaccine2", "It cures your infection!", 
+            "Costs 20HP to use if your Ryley and costs 500,000 to use if you're jackson LOL jk"));
+        
+        //Maps
         ItemDataDB.Add("Zone1", new InventoryItemData("Zone1", "Map of Zone1", "The one with the enemy hiding in the washroom!"));
         ItemDataDB.Add("Zone2", new InventoryItemData("Zone2", "Map of Zone2", "The one with the shitload of enemies"));
         ItemDataDB.Add("Zone3", new InventoryItemData("Zone3", "Map of Zone3", "The one with a big puddle lol"));
