@@ -141,7 +141,7 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
             Debug.Log("Attempting to Pick up Item");
             GameManager.InventoryScreen.AddItemToInventory(ItemName.text, Category);
             // Destroy from loot screen
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }
