@@ -131,7 +131,7 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
             Category = "Maps";
         }
         else Category = "Weapons";
-        if(PickUpOrDrop.sprite.name.Contains("Cross"))
+        if(PickUpOrDrop.sprite.name.Contains("Drop"))
         {
             Debug.Log("Attempting to Drop Item");
             GameManager.InventoryScreen.RemoveItemFromInventory(ItemName.text, Category);
