@@ -12,11 +12,17 @@ public class LootableObject : MonoBehaviour
     private GameManager GameManager;
 	void Start () 
     {
+        //gameObject.GetComponent("Halo").GetType().GetProperty("enabled").SetValue(gameObject.GetComponent("halo"), false, null);
+
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         LootDebug = GameObject.Find("LootDebug").GetComponent<Text>();
         IsLooted = false;
         LootableObjectName = gameObject.name;
 	}
+    public void ToggleHalo(bool Toggle)
+    {
+        //gameObject.GetComponent("Halo").GetType().GetProperty("enabled").SetValue(gameObject.GetComponent("halo"), Toggle, null);
+    }
     public string GetLootableObjectName()
     {
         return LootableObjectName;
