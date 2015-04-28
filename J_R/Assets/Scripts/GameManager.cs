@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public static LootManager LootManager;
     public static Enums.ActiveUI CurrentlyActiveUI;
 
-    public  GameObject Inventory;
-    public  GameObject Loot;
+    public GameObject Inventory;
+    public GameObject Loot;
 
 	void Awake () // Runs before anything else
     {
@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
         InventoryScreen = GameObject.Find("InventoryScreen").GetComponent<InventoryScreen>();
         LootableInventoryScreen = GameObject.Find("LootableInventoryScreen").GetComponent<LootableInventoryScreen>();
         LootManager = gameObject.GetComponent<LootManager>();
+
+        Loot.SetActive(false);
 	}
 	void Update () 
     {
@@ -49,5 +51,9 @@ public class GameManager : MonoBehaviour
     public GameObject GetLootScreen()
     {
         return Loot;
+    }
+    public LootableInventoryScreen GetLootableInventoryPanel()
+    {
+        return LootableInventoryScreen;
     }
 }

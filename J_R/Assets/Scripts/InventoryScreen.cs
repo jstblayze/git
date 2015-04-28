@@ -30,8 +30,11 @@ public class InventoryScreen : MonoBehaviour
         Items,
         Maps
     }
-    private Dictionary<string, InventoryItemData[]> Inventory = new Dictionary<string, InventoryItemData[]>();
-    private InventoryItemData[] CurrentlyLookAt;
+    //private Dictionary<string, InventoryItemData[]> Inventory = new Dictionary<string, InventoryItemData[]>();
+    private Dictionary<string, List<InventoryItemData>> Inventory = new Dictionary<string, List<InventoryItemData>>();
+    
+    //private InventoryItemData[] CurrentlyLookAt;
+    private List<InventoryItemData> CurrentlyLookAt;
 
     public Text Health;
     public Text Infection;
@@ -39,22 +42,28 @@ public class InventoryScreen : MonoBehaviour
     
     void Awake()
     {
-        Inventory.Add("Weapons", new InventoryItemData[] 
-        {
-            GameManager.LootManager.GetItemData("Pistol"),
-            GameManager.LootManager.GetItemData("Rifle"),
-            GameManager.LootManager.GetItemData("MachineGun") 
-        });
-        Inventory.Add("Items", new InventoryItemData[]
-        {
-            GameManager.LootManager.GetItemData("Vaccine1")
-        });
-        Inventory.Add("Maps", new InventoryItemData[] 
-        {
-            GameManager.LootManager.GetItemData("Zone1"),
-            GameManager.LootManager.GetItemData("Zone2"),
-            GameManager.LootManager.GetItemData("Zone3")
-        });
+        List<InventoryItemData> Weapons = new List<InventoryItemData>();
+        List<InventoryItemData> Items = new List<InventoryItemData>();
+        List<InventoryItemData> Maps = new List<InventoryItemData>();
+
+        // Add to weapons
+        Weapons.Add(GameManager.LootManager.GetItemData("Pistol"));
+        Weapons.Add(GameManager.LootManager.GetItemData("Rifle"));
+        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
+        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
+        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
+        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
+        Inventory.Add("Weapons", Weapons);
+
+        // Add to items
+        Items.Add(GameManager.LootManager.GetItemData("Vaccine1"));
+        Inventory.Add("Items", Items);
+
+        // Add to maps
+        Maps.Add(GameManager.LootManager.GetItemData("Zone1"));
+        Maps.Add(GameManager.LootManager.GetItemData("Zone2"));
+        Maps.Add(GameManager.LootManager.GetItemData("Zone3"));
+        Inventory.Add("Maps", Maps);
     }
     void Start () 
     {
@@ -130,30 +139,19 @@ public class InventoryScreen : MonoBehaviour
     public void DisplayInventoryCategory(string Category)
     {
         ClearInventoryItemsFromCategory();
-        foreach (KeyValuePair<string, InventoryItemData[]> pair in Inventory)
+        foreach (KeyValuePair<string, List<InventoryItemData>> pair in Inventory)
         {
-            Debug.Log(pair.Key + " " + Category);
             if (pair.Key == Category)
             {
-                Debug.Log("Match!");
+                Debug.Log("DisplayInventoryCategory() + " + pair.Key + " matches " + Category);
                 CurrentlyLookAt = pair.Value;
-                if (CurrentlyLookAt != null && CurrentlyLookAt.Length > 0)
-                {
-                    foreach (InventoryItemData ICD in CurrentlyLookAt)
-                    {
-                        Debug.Log(ICD.ToString());
-                    }
-                }
-                else
-                {
-                    Debug.Log("CurrentlyLookAt is null");
-                }
+                Debug.Log("CurrentlyLookAt's count: " + CurrentlyLookAt.Count);
                 break;
             }
         }
-        if (CurrentlyLookAt != null && CurrentlyLookAt.Length != 0)
+        if (CurrentlyLookAt != null && CurrentlyLookAt.Count != 0)
         {
-            for (int i = 0; i < CurrentlyLookAt.Length; i++)
+            for (int i = 0; i < CurrentlyLookAt.Count; i++)
             {
                 InventoryItem InventoryItem = PreFab_InventoryItemPanel.GetComponent<InventoryItem>();
                 InventoryItem.SetLootName(CurrentlyLookAt[i].GetItemName());
@@ -162,7 +160,7 @@ public class InventoryScreen : MonoBehaviour
                 GameObject IIP = (GameObject)Instantiate(PreFab_InventoryItemPanel, transform.position, Quaternion.identity);
                 IIP.transform.SetParent(InventoryWindowItems.transform);
 
-                if(i == CurrentlyLookAt.Length -1)
+                if (i == 0)
                 {
                     IIP.GetComponent<Button>().Select(); // This isn't working the first time
                     SelectInventoryItem(CurrentlyLookAt[i].GetItemName(), InventoryItem.LootImage);
@@ -190,7 +188,7 @@ public class InventoryScreen : MonoBehaviour
     public void SelectInventoryItem(string ItemName, Image InventoryImage)
     {
         InventoryStatsImage.sprite = InventoryImage.sprite;
-        for(int i = 0; i < CurrentlyLookAt.Length; i++)
+        for(int i = 0; i < CurrentlyLookAt.Count; i++)
         {
             if(CurrentlyLookAt[i].GetItemName() == ItemName)
             {
@@ -211,41 +209,26 @@ public class InventoryScreen : MonoBehaviour
     }
     public void AddItemToInventory(string ItemName, string Category)
     {
-        InventoryItemData[] Data = Inventory[Category];
-        if(Data != null)
-        {
-            InventoryItemData[] Temp = new InventoryItemData[Data.Length + 1];
-            // Copy over all values from Data to Temp
-            for (int i = 0; i < Temp.Length; i++)
-            {
-                if (i != Temp.Length - 1)
-                {
-                    Temp[i] = Data[i];
-                }
-                else
-                {
-                    Temp[i] = GameManager.LootManager.GetItemData(ItemName);
-                    Debug.Log("Temp[i]" + Temp[i].ToString());
-                }
-            }
-            Inventory[Category] = Temp;
-        }
+        List<InventoryItemData> Data = Inventory[Category];
+        Data.Add(GameManager.LootManager.GetItemData(ItemName));
+        Inventory[Category] = Data;
     }
     public void RemoveItemFromInventory(string ItemName, string Category)
     {
-        InventoryItemData[] Data = Inventory[Category];
+        List<InventoryItemData> Data = Inventory[Category];
         if (Data != null)
         {
-            InventoryItemData[] Temp = new InventoryItemData[Data.Length - 1];
-            // Copy over all values from Data to Temp
-            for (int i = 0; i < Data.Length; i++)
+            int IndexToRemove = -1;
+            for (int i = 0; i < Data.Count; i++)
             {
-                if (!(Data[i].GetItemName() == ItemName))
+                if (Data[i].GetItemName() == ItemName)
                 {
-                    Temp[i] = Data[i];
+                    IndexToRemove = i;
+                    break;
                 }
             }
-            Inventory[Category] = Temp;
+            Data.RemoveAt(IndexToRemove);
+            Inventory[Category] = Data;
             DisplayInventoryCategory(Category);
         }
     }

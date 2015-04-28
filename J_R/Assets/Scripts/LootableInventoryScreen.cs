@@ -5,18 +5,21 @@ using UnityEngine.UI;
 public class LootableInventoryScreen : MonoBehaviour
 {
     public RectTransform Panel; // Whoever thought of this is a fucking moron - call it a PANEL! 
-    public GameObject PreFab_InventoryItem;
     public GameObject PreFab_InventoryItemPanel;
-    private bool ShowInventory;
-    public GameObject UIWindow;
-   
+    public GameObject NO_ITEMS;
+    private bool ShowInventory;   
 	void Start () 
     {
+        NO_ITEMS.SetActive(false);
         //ShowInventory = false;
 	}
 	void Update () 
     {
 	}
+    public void SetNoItems(bool ToShow)
+    {
+        NO_ITEMS.SetActive(ToShow);
+    }
     public void ShowInventoryScreen(bool ToShow)
     {
         //ShowInventory = ToShow;
