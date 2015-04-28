@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject Inventory;
     public GameObject Loot;
+    public GameObject LootScreen;
 
 	void Awake () // Runs before anything else
     {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
         Movement = GameObject.Find("Player").GetComponent<Movement>();
 
         InventoryScreen = GameObject.Find("InventoryScreen").GetComponent<InventoryScreen>();
-        LootableInventoryScreen = GameObject.Find("LootableInventoryScreen").GetComponent<LootableInventoryScreen>();
+        LootableInventoryScreen = LootScreen.GetComponent<LootableInventoryScreen>();
         LootManager = gameObject.GetComponent<LootManager>();
 
         Loot.SetActive(false);

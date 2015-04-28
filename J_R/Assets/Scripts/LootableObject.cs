@@ -33,8 +33,9 @@ public class LootableObject : MonoBehaviour
     {
         IsLooted = Looted;
     }
-    public void OnMouseDown()
+    public void OnMouseDown() // Would change to On Object Opened
     {
+        GameManager.GetLootableInventoryPanel().SetNoItems(false);
         GameManager.GetLootScreen().SetActive(true);
         GameManager.CurrentlyActiveUI = Enums.ActiveUI.LootScreen;
         GameManager.LootManager.ResetInventoryScreen();
@@ -66,9 +67,16 @@ public class LootableObject : MonoBehaviour
         {
             LootDebug.text = "LOOT DEBUG:";
             LootDebug.text += "\n" + gameObject.name + " re-opened! -> Found " + ItemsInLootableObject.Count + " item(s)!";
-            for (int i = 0; i < ItemsInLootableObject.Count; i++)
+            if(ItemsInLootableObject.Count == 0)
             {
-                GameManager.LootableInventoryScreen.AddToCanvas(ItemsInLootableObject[i]);
+                GameManager.GetLootableInventoryPanel().SetNoItems(true);
+            }
+            else
+            {
+                for (int i = 0; i < ItemsInLootableObject.Count; i++)
+                {
+                    GameManager.LootableInventoryScreen.AddToCanvas(ItemsInLootableObject[i]);
+                }
             }
         }
     }
