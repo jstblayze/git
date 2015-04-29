@@ -9,13 +9,20 @@ public class GameManager : MonoBehaviour
     public static LootableInventoryScreen LootableInventoryScreen;
     public static LootManager LootManager;
     public static Enums.ActiveUI CurrentlyActiveUI;
+    public static bool ObjectInLootingRange;
+    public static LootableObject ObjectInLootRange;
 
     public GameObject Inventory;
     public GameObject Loot;
     public GameObject LootScreen;
+    public GameObject LootPrompt;
 
 	void Awake () // Runs before anything else
     {
+        LootPrompt.SetActive(false);
+        ObjectInLootRange = null;
+        ObjectInLootingRange = false;
+
         Character = GameObject.Find("Player").GetComponent<Character>();
         Movement = GameObject.Find("Player").GetComponent<Movement>();
 

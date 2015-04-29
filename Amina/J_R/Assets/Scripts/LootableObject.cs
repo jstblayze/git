@@ -10,18 +10,42 @@ public class LootableObject : MonoBehaviour
     public List<string> ItemsInLootableObject = new List<string>();
     private string LootableObjectName;
     private GameManager GameManager;
+    public GameObject LootPrompt;
 	void Start () 
     {
-        //gameObject.GetComponent("Halo").GetType().GetProperty("enabled").SetValue(gameObject.GetComponent("halo"), false, null);
-
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         LootDebug = GameObject.Find("LootDebug").GetComponent<Text>();
         IsLooted = false;
         LootableObjectName = gameObject.name;
 	}
+    public void TogglePlayerInLootingRange(bool Toggle)
+    {
+        switch(Toggle)
+        {
+            case true:
+                LootPrompt.SetActive(true);
+                LootPrompt.GetComponentInChildren<Text>().text = "Open " + gameObject.name;
+                GameManager.ObjectInLootingRange = Toggle;
+                GameManager.ObjectInLootRange = this;
+                break;
+            case false:
+                LootPrompt.GetComponentInChildren<Text>().text = "";
+                LootPrompt.SetActive(false);
+                GameManager.ObjectInLootingRange = Toggle;
+                GameManager.ObjectInLootRange = null;
+                break;
+        }
+    }
     public void ToggleHalo(bool Toggle)
     {
-        //gameObject.GetComponent("Halo").GetType().GetProperty("enabled").SetValue(gameObject.GetComponent("halo"), Toggle, null);
+        Behaviour h = (Behaviour)GetComponent("Halo");
+        h.enabled = Toggle;
+        if(Toggle)
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+        }
+        else
+            gameObject.GetComponent<Renderer>().material.color = Color.white;
     }
     public string GetLootableObjectName()
     {
