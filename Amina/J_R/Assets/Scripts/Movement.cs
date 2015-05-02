@@ -39,33 +39,23 @@ public class Movement : MonoBehaviour
                 DrawColor = Color.green;
             }
         }*/
-        // >>>! Matthew Wayne : Would these input controls be here?
-        if(Input.GetKeyDown("y") && GameManager.CurrentlyActiveUI != Enums.ActiveUI.LootScreen) 
-        {
-            InventoryScreen.SetActive(true);
-            GameManager.CurrentlyActiveUI = Enums.ActiveUI.InventoryScreen;
-        }
-        if (Input.GetKeyDown("f") && GameManager.ObjectInLootingRange && GameManager.ObjectInLootRange != null)
-        {
-            GameManager.ObjectInLootRange.OnMouseDown();
-        }
+        
         // Basic move forward
         if(Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.forward * Time.deltaTime * 2.50f);
         }
         //Basic move back
-        else if(Input.GetKey(KeyCode.S))
+        if(Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.back * Time.deltaTime * 2.50f);
         }
         // Basic rotation
-        // !>>> Matthew Wayne : Change this to straffing functionality. Rotating would be "mouse based"
-        else if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(0.0f, -45.0f * Time.deltaTime, 0.0f);
         }
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(0.0f, 45.0f * Time.deltaTime, 0.0f);
         }

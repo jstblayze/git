@@ -32,8 +32,10 @@ public class GameManager : MonoBehaviour
 
         Loot.SetActive(false);
 	}
+    // Activating/ Deactivating Screens
 	void Update () 
     {
+        // Exit any pop up screen
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             switch(CurrentlyActiveUI)
@@ -50,6 +52,30 @@ public class GameManager : MonoBehaviour
                     CurrentlyActiveUI = Enums.ActiveUI.None;
                     break;
             }
+        }
+        // Open Inventory Screen Y
+        if (Input.GetKeyDown(KeyCode.Y) && CurrentlyActiveUI == Enums.ActiveUI.None)
+        {
+            Inventory.SetActive(true);
+            CurrentlyActiveUI = Enums.ActiveUI.InventoryScreen;
+        }
+        // Close Inventory Screen Y
+        else if(Input.GetKeyDown(KeyCode.Y) && CurrentlyActiveUI == Enums.ActiveUI.InventoryScreen)
+        {
+            Inventory.SetActive(false);
+            CurrentlyActiveUI = Enums.ActiveUI.None;
+        }
+        // Open Loot Screen F
+        if (Input.GetKeyDown(KeyCode.F) && CurrentlyActiveUI == Enums.ActiveUI.None && 
+            ObjectInLootingRange && ObjectInLootRange != null)
+        {
+            ObjectInLootRange.OnMouseDown();
+        }
+        // Close Loot Screen F
+        else if(Input.GetKeyDown(KeyCode.F) && CurrentlyActiveUI == Enums.ActiveUI.LootScreen)
+        {
+            Loot.SetActive(false);
+            CurrentlyActiveUI = Enums.ActiveUI.None;
         }
 	}
     public GameObject GetInventoryScreen()

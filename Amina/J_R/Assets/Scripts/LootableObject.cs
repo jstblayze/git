@@ -1,8 +1,8 @@
 ﻿// Author: Amina Khalique
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+
 public class LootableObject : MonoBehaviour 
 {
     private bool IsLooted;
@@ -18,6 +18,19 @@ public class LootableObject : MonoBehaviour
         IsLooted = false;
         LootableObjectName = gameObject.name;
 	}
+    void Update()
+    {
+       // Makes the object glow when it's in camera/ player view :)
+       Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+       if (GeometryUtility.TestPlanesAABB(planes, GetComponent<Renderer>().bounds))
+       {
+           ToggleHalo(true);
+       }
+       else
+       {
+           ToggleHalo(false);
+       }
+    }
     public void TogglePlayerInLootingRange(bool Toggle)
     {
         switch(Toggle)

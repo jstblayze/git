@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\LootableObject.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\ObjectOpener.cs" />
-     <Compile Include="Assets\Scripts\ObjectSenser.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
