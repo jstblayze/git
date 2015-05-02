@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
    
     public void Start()
     {
-        this.CharacterName = "Ryley"; // Set to default Ryley
+        this.CharacterName = "Ryley"; 
         CurrentCharacter = (Enums.Character)System.Enum.Parse(typeof(Enums.Character), CharacterName);
         // Set Character Prerequisites here
         switch (CurrentCharacter)

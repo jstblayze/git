@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
 	void Awake () // Runs before anything else
     {
+        // Check if save game stuff exists - If it does -> reflect on Main Screen Buttons
+
         LootPrompt.SetActive(false);
         ObjectInLootRange = null;
         ObjectInLootingRange = false;
@@ -58,6 +60,7 @@ public class GameManager : MonoBehaviour
         {
             Inventory.SetActive(true);
             CurrentlyActiveUI = Enums.ActiveUI.InventoryScreen;
+            InventoryScreen.OnOpenInventoryScreen();
         }
         // Close Inventory Screen Y
         else if(Input.GetKeyDown(KeyCode.Y) && CurrentlyActiveUI == Enums.ActiveUI.InventoryScreen)
@@ -69,7 +72,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && CurrentlyActiveUI == Enums.ActiveUI.None && 
             ObjectInLootingRange && ObjectInLootRange != null)
         {
-            ObjectInLootRange.OnMouseDown();
+            ObjectInLootRange.OnBeingLooted();
         }
         // Close Loot Screen F
         else if(Input.GetKeyDown(KeyCode.F) && CurrentlyActiveUI == Enums.ActiveUI.LootScreen)

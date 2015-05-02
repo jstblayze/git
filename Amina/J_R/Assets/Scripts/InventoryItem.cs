@@ -138,10 +138,11 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
         }
         else if(PickUpOrDrop.sprite.name.Contains("Checkmark")) 
         {
-            Debug.Log("Attempting to Pick up Item");
+            Debug.Log("Attempting to Pick up Item with Category:" + Category);
             GameManager.InventoryScreen.AddItemToInventory(ItemName.text, Category);
-            // Destroy from loot screen
+            // Destroy from loot screen & loot items
             Destroy(gameObject);
+            GameManager.ObjectInLootRange.RemoveFromLoot(ItemName.text);
         }
     }
 }

@@ -2,7 +2,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
 public class LootableObject : MonoBehaviour 
 {
     private bool IsLooted;
@@ -40,12 +39,14 @@ public class LootableObject : MonoBehaviour
                 LootPrompt.GetComponentInChildren<Text>().text = "Open " + gameObject.name;
                 GameManager.ObjectInLootingRange = Toggle;
                 GameManager.ObjectInLootRange = this;
+                gameObject.GetComponent<Renderer>().material.color = Color.green;
                 break;
             case false:
                 LootPrompt.GetComponentInChildren<Text>().text = "";
                 LootPrompt.SetActive(false);
                 GameManager.ObjectInLootingRange = Toggle;
                 GameManager.ObjectInLootRange = null;
+                gameObject.GetComponent<Renderer>().material.color = Color.white;
                 break;
         }
     }
@@ -53,12 +54,6 @@ public class LootableObject : MonoBehaviour
     {
         Behaviour h = (Behaviour)GetComponent("Halo");
         h.enabled = Toggle;
-        if(Toggle)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }
-        else
-            gameObject.GetComponent<Renderer>().material.color = Color.white;
     }
     public string GetLootableObjectName()
     {
@@ -76,7 +71,22 @@ public class LootableObject : MonoBehaviour
     {
         IsLooted = Looted;
     }
-    public void OnMouseDown() // Would change to On Object Opened
+    public void RemoveFromLoot(string ItemName)
+    {
+        int IndexToRemove = -1;
+        for(int i = 0; i < ItemsInLootableObject.Count; i++)
+        {
+            if(ItemsInLootableObject[i] == ItemName)
+            {
+                IndexToRemove = i;
+            }
+        }
+        if(IndexToRemove != -1)
+        {
+            ItemsInLootableObject.RemoveAt(IndexToRemove);
+        }
+    }
+    public void OnBeingLooted() // Would change to On Object Opened
     {
         GameManager.GetLootableInventoryPanel().SetNoItems(false);
         GameManager.GetLootScreen().SetActive(true);
@@ -92,6 +102,10 @@ public class LootableObject : MonoBehaviour
                 for (int i = 0; i < RandomizedItemAmount; i++)
                 {
                     ItemsInLootableObject.Add(GameManager.LootManager.FindItemInLootableObject(gameObject.name, ItemsInLootableObject));
+                }
+                foreach (string s in ItemsInLootableObject)
+                {
+                    Debug.Log(s);
                 }
             }
             else

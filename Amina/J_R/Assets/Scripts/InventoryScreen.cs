@@ -50,9 +50,7 @@ public class InventoryScreen : MonoBehaviour
         Weapons.Add(GameManager.LootManager.GetItemData("Pistol"));
         Weapons.Add(GameManager.LootManager.GetItemData("Rifle"));
         Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
-        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
-        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
-        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
+        Weapons.Add(GameManager.LootManager.GetItemData("PistolBullets"));
         Inventory.Add("Weapons", Weapons);
 
         // Add to items
@@ -69,9 +67,12 @@ public class InventoryScreen : MonoBehaviour
     {
         No_Items.gameObject.SetActive(false);
         MapScreen.SetActive(false);
-        //SelectInventoryCategory("Weapons");
-        //Weapons.GetComponent<Button>().Select();
 	}
+    public void OnOpenInventoryScreen()
+    {
+        SelectInventoryCategory("Weapons");
+        Weapons.GetComponent<Button>().Select();
+    }
 	void Update ()
     {
         // Base Infection & Health on Character.cs class
@@ -209,6 +210,8 @@ public class InventoryScreen : MonoBehaviour
     }
     public void AddItemToInventory(string ItemName, string Category)
     {
+        Debug.Log("AddItemToInventory() in InventoryScreen.cs with Category: " + Category);
+
         List<InventoryItemData> Data = Inventory[Category];
         Data.Add(GameManager.LootManager.GetItemData(ItemName));
         Inventory[Category] = Data;
