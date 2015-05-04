@@ -5,18 +5,28 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
 { 
+    // Jackson Sprites
     public Sprite Pistol;
     public Sprite MachineGun;
     public Sprite Rifle;
     public Sprite PistolBullets;
     public Sprite MachineGunBullets;
     public Sprite RifleBullets;
+
+    // Ryley Sprites
+    public Sprite MetalPipe;
+    public Sprite Reminder;
+    public Sprite Knife;
+
     public Sprite Vaccine1;
     public Sprite Vaccine2;
+    
     public Sprite Zone_A_Key;
+    
     public Sprite Zone1;
     public Sprite Zone2;
     public Sprite Zone3;
+    
     public Sprite Pickup;
     public Sprite Drop;
 
@@ -61,6 +71,15 @@ public class InventoryItem : MonoBehaviour // Multiple inheritance not supported
         {
             default:
                 Debug.Log("InventoryItem.cs: Item Not Recognized");
+                break;
+            case Enums.Item.MetalPipe:
+                LootImage.sprite = MetalPipe;
+                break;
+            case Enums.Item.Reminder:
+                LootImage.sprite = Reminder;
+                break;
+            case Enums.Item.Knife:
+                LootImage.sprite = Knife;
                 break;
             case Enums.Item.Pistol:
                 LootImage.sprite = Pistol;

@@ -15,7 +15,7 @@ public class MainScreen : MonoBehaviour
 	}
     public void OnPlayOrNewGamePressed()
     {
-        // Load CharacterSelectionScene
+        Application.LoadLevel("CharacterSelectionScene");
     }
     public void OnContinuePresed()
     {
@@ -23,7 +23,7 @@ public class MainScreen : MonoBehaviour
     }
     public void OnOptionsPresed()
     {
-        // Load OptionsScene
+        Application.LoadLevel("OptionsScene");
     }
     public void OnCreditsPressed()
     {

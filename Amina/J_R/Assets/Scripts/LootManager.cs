@@ -24,6 +24,9 @@ public class LootManager : MonoBehaviour
         ItemDataDB.Add("RifleBullets", new InventoryItemData("RifleBullets", "Dat Rifle Bullet Pack yo", "Rifle Ammo 50"));
         ItemDataDB.Add("PistolBullets", new InventoryItemData("PistolBullets", "Dat Pistol Bullet Pack yo", "Pistol Ammo 15"));
         ItemDataDB.Add("Zone_A_Key", new InventoryItemData("Zone_A_Key", "Opens up scifi gate A", "Isn't it pretty?"));
+        ItemDataDB.Add("MetalPipe", new InventoryItemData("MetalPipe", "It's a metallic pipe", "It's going to hurt you"));
+        ItemDataDB.Add("Reminder", new InventoryItemData("Reminder", "Yeap - Based on Matt", "He's never living it down"));
+        ItemDataDB.Add("Knife", new InventoryItemData("Knife", "It's sharp", "Trust me"));
         
         //Items
         ItemDataDB.Add("Vaccine1", new InventoryItemData("Vaccine1", "It cures your health/infection", 
@@ -37,80 +40,143 @@ public class LootManager : MonoBehaviour
         ItemDataDB.Add("Zone3", new InventoryItemData("Zone3", "Map of Zone3", "The one with a big puddle lol"));
         
         //Position Corresponds to item count                 0  1   2   3   4 
-        ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 }); 
-        ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 50, 20, 5 });
-        ItemCountRandomizerDB.Add("Enemy_Gecko", new int[] { 0, 25, 50, 20, 5 });
-        ItemCountRandomizerDB.Add("Container_Locker", new int[] { 20, 20, 20, 20, 20 });
-        ItemCountRandomizerDB.Add("Container_DeskDrawer", new int[] { 20, 20, 20, 20, 20 });
-        ItemCountRandomizerDB.Add("Container_MedicalKit", new int[] { 20, 20, 20, 20, 20 });
+        ItemCountRandomizerDB.Add("Enemy_Tiger", new int[] { 0, 25, 45, 20, 10 });
+        ItemCountRandomizerDB.Add("Enemy_Lizard", new int[] { 0, 25, 45, 20, 10 });
+        ItemCountRandomizerDB.Add("Enemy_Gecko", new int[] { 0, 25, 45, 20, 10 });
+        ItemCountRandomizerDB.Add("Container_Locker", new int[] { 0, 25, 45, 20, 10 });
+        ItemCountRandomizerDB.Add("Container_DeskDrawer", new int[] { 0, 25, 45, 20, 10 });
+        ItemCountRandomizerDB.Add("Container_MedicalKit", new int[] { 0, 25, 45, 20, 10 }); 
 
-        // Create Item Chance Database
-        // If you fimd an item that cannot be duplicated - 
+        // Create Item Chance Database - Based on character >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // If you find an item that cannot be duplicated - 
         // - return the item that can be duplicated - that has the highest chance of duplicating instead
         // Tiger
-        ItemChanceDB.Add("Enemy_Tiger", new ItemChanceData [] 
+        if(GameManager.CharacterSelected == Enums.Character.Jackson)
         {
-            new ItemChanceData("Pistol", 40, false, 
-                new ItemChanceData("PistolBullets", 30, true, null)), // 40% Chance there's a pistol on a Tiger Enemy
-            new ItemChanceData("PistolBullets", 30, true, null),
-            new ItemChanceData("Vaccine1",15, true, null),
-            new ItemChanceData("Vaccine2",15, true, null)
-        });
-        // Gecko
-        ItemChanceDB.Add("Enemy_Gecko", new ItemChanceData[] 
-        {
-            new ItemChanceData("Pistol", 15, false, 
-                new ItemChanceData("MachineGunBullets", 20, true, null)),
-            new ItemChanceData("MachineGun", 40, false,
-                new ItemChanceData("Vaccine1", 20, true, null)),
-            new ItemChanceData("MachineGunBullets",20, true, null),
-            new ItemChanceData("Vaccine1",20, true, null),
-            new ItemChanceData("Vaccine2",5, true, null)
-        }); 
-        // Lizard
-        ItemChanceDB.Add("Enemy_Lizard", new ItemChanceData[] 
-        {
-            new ItemChanceData("Pistol", 5, false,
-                new ItemChanceData("Vaccine1", 30, true, null)),
-            new ItemChanceData("Rifle", 25, false, 
-                new ItemChanceData("Vaccine2", 20, true, null)),
-            new ItemChanceData("RifleBullets", 10, true, null),
-            new ItemChanceData("Vaccine1",30, true, null),
-            new ItemChanceData("Vaccine2",20, true, null)
-        }); 
-        // Medical Kit - Only find vaccines
-        ItemChanceDB.Add("Container_MedicalKit", new ItemChanceData[] 
-        {
-            new ItemChanceData("Vaccine1",65, false, 
-                new ItemChanceData("Vaccine2", 35, true, null)),
-            new ItemChanceData("Vaccine2",35, true, null)
-        }); 
+            ItemChanceDB.Add("Enemy_Tiger", new ItemChanceData[] 
+            {
+                new ItemChanceData("Pistol", 40, false, 
+                    new ItemChanceData("PistolBullets", 30, true, null)), // 40% Chance there's a pistol on a Tiger Enemy
+                new ItemChanceData("PistolBullets", 30, true, null),
+                new ItemChanceData("Vaccine1",15, true, null),
+                new ItemChanceData("Vaccine2",15, true, null)
+            });
+            // Gecko
+            ItemChanceDB.Add("Enemy_Gecko", new ItemChanceData[] 
+            {
+                new ItemChanceData("Pistol", 15, false, 
+                    new ItemChanceData("MachineGunBullets", 20, true, null)),
+                new ItemChanceData("MachineGun", 40, false,
+                    new ItemChanceData("Vaccine1", 20, true, null)),
+                new ItemChanceData("MachineGunBullets",20, true, null),
+                new ItemChanceData("Vaccine1",20, true, null),
+                new ItemChanceData("Vaccine2",5, true, null)
+            });
+            // Lizard
+            ItemChanceDB.Add("Enemy_Lizard", new ItemChanceData[] 
+            {
+                new ItemChanceData("Pistol", 5, false,
+                    new ItemChanceData("Vaccine1", 30, true, null)),
+                new ItemChanceData("Rifle", 25, false, 
+                    new ItemChanceData("Vaccine2", 20, true, null)),
+                new ItemChanceData("RifleBullets", 10, true, null),
+                new ItemChanceData("Vaccine1",30, true, null),
+                new ItemChanceData("Vaccine2",20, true, null)
+            });
+            // Medical Kit - Only find vaccines
+            ItemChanceDB.Add("Container_MedicalKit", new ItemChanceData[] 
+            {
+                new ItemChanceData("Vaccine1",65, false, 
+                    new ItemChanceData("Vaccine2", 35, true, null)),
+                new ItemChanceData("Vaccine2",35, true, null)
+            });
 
-        // Locker - Only find weapons & Bullets 
-        ItemChanceDB.Add("Container_Locker", new ItemChanceData[] 
+            // Locker - Only find weapons & Bullets 
+            ItemChanceDB.Add("Container_Locker", new ItemChanceData[] 
+            {
+                new ItemChanceData("Pistol", 20, false,
+                    new ItemChanceData("PistolBullets", 30, true, null)),
+                new ItemChanceData("PistolBullets", 30, true, null),
+                new ItemChanceData("MachineGun",15, false, 
+                    new ItemChanceData("RifleBullets", 10, true, null)),
+                new ItemChanceData("MachineGunBullets", 20, false,
+                    new ItemChanceData("PistolBullets", 30, true, null)),
+                new ItemChanceData("Rifle", 5, false,
+                    new ItemChanceData("RifleBullets", 10, true, null)),
+                new ItemChanceData("RifleBullets", 10, true, null)
+            });
+            // Desk Drawer - Only find Bullets, Keys, Vaccines
+            ItemChanceDB.Add("Container_DeskDrawer", new ItemChanceData[] 
+            {
+                new ItemChanceData("PistolBullets", 30, true, null),
+                new ItemChanceData("MachineGunBullets", 20, true, null),
+                new ItemChanceData("RifleBullets", 10, true, null),
+                new ItemChanceData("Zone_A_Key", 25, false,
+                    new ItemChanceData("PistolBullets", 30, true, null)),
+                new ItemChanceData("Vaccine1", 10, true, null),
+                new ItemChanceData("Vaccine2", 5, true, null)
+            });
+            ///////////////JACKSON END
+        }
+        if (GameManager.CharacterSelected == Enums.Character.Ryley)
         {
-            new ItemChanceData("Pistol", 20, false,
-                new ItemChanceData("PistolBullets", 30, true, null)),
-            new ItemChanceData("PistolBullets", 30, true, null),
-            new ItemChanceData("MachineGun",15, false, 
-                new ItemChanceData("RifleBullets", 10, true, null)),
-            new ItemChanceData("MachineGunBullets", 20, false,
-                new ItemChanceData("PistolBullets", 30, true, null)),
-            new ItemChanceData("Rifle", 5, false,
-                new ItemChanceData("RifleBullets", 10, true, null)),
-            new ItemChanceData("RifleBullets", 10, true, null)
-        }); 
-        // Desk Drawer - Only find Bullets, Keys, Vaccines
-        ItemChanceDB.Add("Container_DeskDrawer", new ItemChanceData[] 
-        {
-            new ItemChanceData("PistolBullets", 30, true, null),
-            new ItemChanceData("MachineGunBullets", 20, true, null),
-            new ItemChanceData("RifleBullets", 10, true, null),
-            new ItemChanceData("Zone_A_Key", 25, false,
-                new ItemChanceData("PistolBullets", 30, true, null)),
-            new ItemChanceData("Vaccine1", 10, true, null),
-            new ItemChanceData("Vaccine2", 5, true, null)
-        });
+            ItemChanceDB.Add("Enemy_Tiger", new ItemChanceData[] 
+            {
+                new ItemChanceData("Reminder", 40, false, 
+                    new ItemChanceData("Knife", 30, true, null)), // 40% Chance there's a pistol on a Tiger Enemy
+                new ItemChanceData("Knife", 30, true, null),
+                new ItemChanceData("Vaccine1",15, true, null),
+                new ItemChanceData("Vaccine2",15, true, null)
+            });
+            // Gecko
+            ItemChanceDB.Add("Enemy_Gecko", new ItemChanceData[] 
+            {
+                new ItemChanceData("MetalPipe", 15, false, 
+                    new ItemChanceData("Knife", 20, true, null)),
+                new ItemChanceData("Reminder", 40, false,
+                    new ItemChanceData("Knife", 20, true, null)),
+                new ItemChanceData("Knife",20, true, null),
+                new ItemChanceData("Vaccine1",20, true, null),
+                new ItemChanceData("Vaccine2",5, true, null)
+            });
+            // Lizard
+            ItemChanceDB.Add("Enemy_Lizard", new ItemChanceData[] 
+            {
+                new ItemChanceData("Knife", 5, false,
+                    new ItemChanceData("Vaccine1", 30, true, null)),
+                new ItemChanceData("Reminder", 25, false, 
+                    new ItemChanceData("Vaccine2", 20, true, null)),
+                new ItemChanceData("MetalPipe", 10, true, null),
+                new ItemChanceData("Vaccine1",30, true, null),
+                new ItemChanceData("Vaccine2",20, true, null)
+            });
+            // Medical Kit - Only find vaccines
+            ItemChanceDB.Add("Container_MedicalKit", new ItemChanceData[] 
+            {
+                new ItemChanceData("Vaccine1",65, false, 
+                    new ItemChanceData("Vaccine2", 35, true, null)),
+                new ItemChanceData("Vaccine2",35, true, null)
+            });
+
+            // Locker - Only find weapons & Bullets 
+            ItemChanceDB.Add("Container_Locker", new ItemChanceData[] 
+            {
+                new ItemChanceData("MetalPipe", 20, false,
+                    new ItemChanceData("Knife", 30, true, null)),
+                new ItemChanceData("Knife", 30, true, null),
+                new ItemChanceData("Reminder", 15, false, 
+                    new ItemChanceData("Knife", 30, true, null))
+            });
+            // Desk Drawer - Only find Bullets, Keys, Vaccines
+            ItemChanceDB.Add("Container_DeskDrawer", new ItemChanceData[] 
+            {
+                new ItemChanceData("Zone_A_Key", 25, false,
+                    new ItemChanceData("Knife", 30, true, null)),
+                new ItemChanceData("Vaccine1", 10, true, null),
+                new ItemChanceData("Vaccine2", 5, true, null)
+            });
+            ////////RYLEY END
+        }
     }
     public void AddToOpenedLootList(LootableObject LootableObject)
     {

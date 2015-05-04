@@ -1,8 +1,10 @@
 ﻿// Author: Amina Khalique
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 public class Character : MonoBehaviour
 {
+    public Text CharacterText; 
     private string CharacterName;
     private float CharacterHealth;
     private float CharacterInfection;
@@ -11,24 +13,24 @@ public class Character : MonoBehaviour
    
     public void Start()
     {
-        this.CharacterName = "Ryley"; 
-        CurrentCharacter = (Enums.Character)System.Enum.Parse(typeof(Enums.Character), CharacterName);
+        CurrentCharacter = GameManager.CharacterSelected;
         // Set Character Prerequisites here
         switch (CurrentCharacter)
         {
             case Enums.Character.Jackson:
+                CharacterName = "Jackson";
                 CurrentEquippedWeapon = Enums.Weapon.Pistol;
                 CharacterHealth = 100.0f;
                 CharacterInfection = -1.0f;
-                Debug.Log("Jackson Character");
                 break;
             case Enums.Character.Ryley:
+                CharacterName = "Ryley";
                 CurrentEquippedWeapon = Enums.Weapon.Claws;
                 CharacterHealth = 100.0f;
                 CharacterInfection = 0.0f;
-                Debug.Log("Ryley Character");
                 break;
         }
+        CharacterText.text = CharacterName;
         LoadModel();
     }
     public void LoadModel()

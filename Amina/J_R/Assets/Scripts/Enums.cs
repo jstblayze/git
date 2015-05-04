@@ -5,26 +5,38 @@ public class Enums
 {
     public enum Item
     {
+        // Jackson Weapons
         Pistol,
         MachineGun,
         Rifle,
         PistolBullets,
         MachineGunBullets,
         RifleBullets,
+
+        // Ryley Weapons
+        MetalPipe,
+        Reminder,
+        Knife,
+
+        // Items
         Vaccine1,
         Vaccine2,
         Zone_A_Key,
+        
         // Map Items
         Zone1,
         Zone2,
         Zone3,
+
+        // UI Specific
         Pickup,
         Drop
     }
     public enum Character
     {
-        Jackson,
-        Ryley
+        None,
+        Ryley,
+        Jackson
     }
     public enum Enemy
     {

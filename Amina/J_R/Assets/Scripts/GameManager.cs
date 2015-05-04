@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 public class GameManager : MonoBehaviour 
 {
+    public static Enums.Character CharacterSelected;
+
     public static Character Character;
     public static Movement Movement;
     public static InventoryScreen InventoryScreen;
@@ -55,15 +57,15 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
-        // Open Inventory Screen Y
-        if (Input.GetKeyDown(KeyCode.Y) && CurrentlyActiveUI == Enums.ActiveUI.None)
+        // Open Inventory Screen I
+        if (Input.GetKeyDown(KeyCode.I) && CurrentlyActiveUI == Enums.ActiveUI.None)
         {
             Inventory.SetActive(true);
             CurrentlyActiveUI = Enums.ActiveUI.InventoryScreen;
             InventoryScreen.OnOpenInventoryScreen();
         }
-        // Close Inventory Screen Y
-        else if(Input.GetKeyDown(KeyCode.Y) && CurrentlyActiveUI == Enums.ActiveUI.InventoryScreen)
+        // Close Inventory Screen I
+        else if(Input.GetKeyDown(KeyCode.I) && CurrentlyActiveUI == Enums.ActiveUI.InventoryScreen)
         {
             Inventory.SetActive(false);
             CurrentlyActiveUI = Enums.ActiveUI.None;

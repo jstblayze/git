@@ -46,13 +46,24 @@ public class InventoryScreen : MonoBehaviour
         List<InventoryItemData> Items = new List<InventoryItemData>();
         List<InventoryItemData> Maps = new List<InventoryItemData>();
 
-        // Add to weapons
-        Weapons.Add(GameManager.LootManager.GetItemData("Pistol"));
-        Weapons.Add(GameManager.LootManager.GetItemData("Rifle"));
-        Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
-        Weapons.Add(GameManager.LootManager.GetItemData("PistolBullets"));
-        Inventory.Add("Weapons", Weapons);
-
+        if(GameManager.CharacterSelected == Enums.Character.Jackson)
+        {
+            // Add to weapons
+            Weapons.Add(GameManager.LootManager.GetItemData("Pistol"));
+            Weapons.Add(GameManager.LootManager.GetItemData("Rifle"));
+            Weapons.Add(GameManager.LootManager.GetItemData("MachineGun"));
+            Weapons.Add(GameManager.LootManager.GetItemData("PistolBullets"));
+            Inventory.Add("Weapons", Weapons);
+        }
+        else if(GameManager.CharacterSelected == Enums.Character.Ryley)
+        {
+            // Add to weapons
+            Weapons.Add(GameManager.LootManager.GetItemData("MetalPipe"));
+            Weapons.Add(GameManager.LootManager.GetItemData("Reminder"));
+            Weapons.Add(GameManager.LootManager.GetItemData("Knife"));
+            Weapons.Add(GameManager.LootManager.GetItemData("Knife"));
+            Inventory.Add("Weapons", Weapons);
+        }
         // Add to items
         Items.Add(GameManager.LootManager.GetItemData("Vaccine1"));
         Inventory.Add("Items", Items);
