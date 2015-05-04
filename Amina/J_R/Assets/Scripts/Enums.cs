@@ -61,4 +61,11 @@ public class Enums
         InventoryScreen,
         PauseScreen
     }
+    public enum Interactable
+    {
+        Door,
+        Computer,
+        SciFiDoor,
+        CardReader
+    }
 }

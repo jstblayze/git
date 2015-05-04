@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\InteractableObject.cs" />
      <Compile Include="Assets\Scripts\InventoryItem.cs" />
      <Compile Include="Assets\Scripts\InventoryItemData.cs" />
      <Compile Include="Assets\Scripts\InventoryScreen.cs" />

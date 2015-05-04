@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿// Author: Amina Khalique
+using UnityEngine;
 using System.Collections;
-
 public class LoadScreen : MonoBehaviour 
 {
 	// Use this for initialization

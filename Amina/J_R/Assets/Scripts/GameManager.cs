@@ -11,8 +11,12 @@ public class GameManager : MonoBehaviour
     public static LootableInventoryScreen LootableInventoryScreen;
     public static LootManager LootManager;
     public static Enums.ActiveUI CurrentlyActiveUI;
+
     public static bool ObjectInLootingRange;
     public static LootableObject ObjectInLootRange;
+
+    public static bool InteractableIsInRange;
+    public static InteractableObject InteractableObjectInRange;
 
     public GameObject Inventory;
     public GameObject Loot;
@@ -24,8 +28,11 @@ public class GameManager : MonoBehaviour
         // Check if save game stuff exists - If it does -> reflect on Main Screen Buttons
 
         LootPrompt.SetActive(false);
+
         ObjectInLootRange = null;
         ObjectInLootingRange = false;
+        InteractableIsInRange = false;
+        InteractableObjectInRange = null;
 
         Character = GameObject.Find("Player").GetComponent<Character>();
         Movement = GameObject.Find("Player").GetComponent<Movement>();
@@ -37,7 +44,7 @@ public class GameManager : MonoBehaviour
         Loot.SetActive(false);
 	}
     // Activating/ Deactivating Screens
-	void Update () 
+	void Update ()  // This might need to be moved to an "inputs" script or something 
     {
         // Exit any pop up screen
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -70,6 +77,7 @@ public class GameManager : MonoBehaviour
             Inventory.SetActive(false);
             CurrentlyActiveUI = Enums.ActiveUI.None;
         }
+        // Actions
         // Open Loot Screen F
         if (Input.GetKeyDown(KeyCode.F) && CurrentlyActiveUI == Enums.ActiveUI.None && 
             ObjectInLootingRange && ObjectInLootRange != null)
@@ -81,6 +89,10 @@ public class GameManager : MonoBehaviour
         {
             Loot.SetActive(false);
             CurrentlyActiveUI = Enums.ActiveUI.None;
+        }
+        else if(Input.GetKeyDown(KeyCode.F) && InteractableIsInRange && InteractableObjectInRange != null)
+        {
+            InteractableObjectInRange.PerformAppropriateBehavior();
         }
 	}
     public GameObject GetInventoryScreen()
