@@ -16,6 +16,11 @@ public class ObjectOpener : MonoBehaviour
             InteractableObject InteractableObject = Collider.gameObject.GetComponent<InteractableObject>();
             InteractableObject.TogglePlayerInInteractingRange(true);
         }
+        else if (Collider.gameObject.tag.Contains("Pickable"))
+        {
+            PickableObject PickableObject = Collider.gameObject.GetComponent<PickableObject>();
+            PickableObject.TogglePlayerInPickupRange(true);
+        }
     }
     public void OnTriggerExit(Collider Collider)
     {
@@ -29,6 +34,11 @@ public class ObjectOpener : MonoBehaviour
         {
             InteractableObject InteractableObject = Collider.gameObject.GetComponent<InteractableObject>();
             InteractableObject.TogglePlayerInInteractingRange(false);
+        }
+        else if (Collider.gameObject.tag.Contains("Pickable"))
+        {
+            PickableObject PickableObject = Collider.gameObject.GetComponent<PickableObject>();
+            PickableObject.TogglePlayerInPickupRange(false);
         }
     }
 }

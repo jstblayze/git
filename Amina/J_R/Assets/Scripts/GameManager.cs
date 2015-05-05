@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public static bool InteractableIsInRange;
     public static InteractableObject InteractableObjectInRange;
 
+    public static bool PickableIsInRange;
+    public static PickableObject PickableObjectInRange;
+
     public GameObject Inventory;
     public GameObject Loot;
     public GameObject LootScreen;
@@ -31,8 +34,12 @@ public class GameManager : MonoBehaviour
 
         ObjectInLootRange = null;
         ObjectInLootingRange = false;
+
         InteractableIsInRange = false;
         InteractableObjectInRange = null;
+
+        PickableIsInRange = false;
+        PickableObjectInRange = null;
 
         Character = GameObject.Find("Player").GetComponent<Character>();
         Movement = GameObject.Find("Player").GetComponent<Movement>();
@@ -90,9 +97,15 @@ public class GameManager : MonoBehaviour
             Loot.SetActive(false);
             CurrentlyActiveUI = Enums.ActiveUI.None;
         }
-        else if(Input.GetKeyDown(KeyCode.F) && InteractableIsInRange && InteractableObjectInRange != null)
+        // Interactable Objects
+        if(Input.GetKeyDown(KeyCode.F) && InteractableIsInRange && InteractableObjectInRange != null)
         {
             InteractableObjectInRange.PerformAppropriateBehavior();
+        }
+        //Pickable Objects
+        if (Input.GetKeyDown(KeyCode.F) && PickableIsInRange && PickableObjectInRange != null)
+        {
+            PickableObjectInRange.AddPickableToInventory();
         }
 	}
     public GameObject GetInventoryScreen()

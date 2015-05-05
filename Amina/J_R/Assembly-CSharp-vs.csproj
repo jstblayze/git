@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\ObjectOpener.cs" />
      <Compile Include="Assets\Scripts\OptionsScreen.cs" />
+     <Compile Include="Assets\Scripts\PickableObject.cs" />
      <Compile Include="Assets\Scripts\SelectionScreen.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
