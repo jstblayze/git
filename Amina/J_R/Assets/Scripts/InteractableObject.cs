@@ -19,6 +19,7 @@ public class InteractableObject : MonoBehaviour
                 break;
             case Enums.Interactable.Door:
                 InteractablePrompt.GetComponentInChildren<Text>().text = "Performed Open Door";
+                gameObject.GetComponent<Door>().ActivateDoor();
                 // Open Door Animation Start
                 break;
             case Enums.Interactable.SciFiDoor:

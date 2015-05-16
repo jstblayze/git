@@ -42,8 +42,7 @@ public class Enums
     {
         Tiger,
         Gecko,
-        Komodo,
-        Lizard
+        Komodo
     }
     public enum Weapon
     {
