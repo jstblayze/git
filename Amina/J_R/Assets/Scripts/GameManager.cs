@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     public static LootManager LootManager;
     public static Enums.ActiveUI CurrentlyActiveUI;
 
-    public static AnimationManager AnimationManager;
-
     public static bool ObjectInLootingRange;
     public static LootableObject ObjectInLootRange;
 
@@ -49,8 +47,6 @@ public class GameManager : MonoBehaviour
         InventoryScreen = GameObject.Find("InventoryScreen").GetComponent<InventoryScreen>();
         LootableInventoryScreen = LootScreen.GetComponent<LootableInventoryScreen>();
         LootManager = gameObject.GetComponent<LootManager>();
-
-        AnimationManager = gameObject.GetComponent<AnimationManager>();
 
         Loot.SetActive(false);
 	}

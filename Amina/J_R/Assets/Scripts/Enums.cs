@@ -1,6 +1,6 @@
-﻿// Author : Amina Khalique
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
+
 public class Enums
 {
     public enum Item
@@ -51,8 +51,7 @@ public class Enums
         Rifle,
         Claws,
         MetalPipe,
-        Knife,
-        Reminder
+        Knife
     }
     public enum ActiveUI
     {
@@ -67,30 +66,5 @@ public class Enums
         Computer,
         SciFiDoor,
         CardReader
-    }
-    //>>>! Matthew Whitely - You will probably find these helpful
-    public enum RyleyAnim
-    {
-        RyleyDeath,
-        RyleyFeralDeath,
-        RyleyRun,
-        RyleyClawSwipe,
-        RyleyPipeSwing,
-        RyleyReminderSwing,
-        RyleyKnifeStab,
-        RyleyJumpForward,
-        RyleyInjuryStagger
-    }
-    public enum GeckoAnim
-    {
-        GeckoDeath,
-        GeckoAttack,
-        GeckoInjuryStagger
-    }
-    public enum EAnimationType
-    {
-        Death,
-        Attack,
-        InjuryStagger
     }
 }
