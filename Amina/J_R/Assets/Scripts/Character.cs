@@ -35,7 +35,7 @@ public class Character : MonoBehaviour
     }
     public void LoadModel()
     {
-        //>>>! Matthew Wayne or >>>! Agbolade Blaize
+        //>>>! Matthew Whitely or >>>! Agbolade Blaize
         // Load either Ryley or Jackson with the following:
         // Correct animation blend tree
         // Correct Model

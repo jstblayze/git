@@ -1,5 +1,5 @@
 ﻿//Author: Amina Khalique
-//>>>! Matthew Wayne 
+//>>>! Matthew Whitely 
 using UnityEngine;
 using System.Collections;
 public class Movement : MonoBehaviour 
