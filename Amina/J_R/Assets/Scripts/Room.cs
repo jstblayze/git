@@ -16,20 +16,20 @@ public class Room : MonoBehaviour
             Enemy.gameObject.SetActive(false);
         }
 	}
+    public void SetEnemiesInThisRoom(List<Enemy> EnemiesInRoom)
+    {
+        EnemiesInThisRoom = EnemiesInRoom;
+    }
+    public List<Enemy> GetEnemiesInRoom()
+    {
+        return EnemiesInThisRoom;
+    }
     public void SetEnemyToDelete(int EnemyToDelete)
     {
         EnemyToDeleteIndex = EnemyToDelete;
     }
 	void Update () 
     {
-        for(int i = 0; i < EnemiesInThisRoom.Count; i++)
-        {
-            if(EnemiesInThisRoom[i].GetHealth() == 0 && EnemiesInThisRoom[i].IsEnemyDead() == false)
-            {
-                EnemiesInThisRoom[i].PlayDeathAnimation(); // Play the correct animation >>>!Matthew Wayne
-                EnemiesInThisRoom[i].Destroy(this, i); // Removes that particular enemy from scene
-            }
-        }
         if(EnemyToDeleteIndex != -1) // There's an enemy to remove from the list
         {
             EnemiesInThisRoom.RemoveAt(EnemyToDeleteIndex);
