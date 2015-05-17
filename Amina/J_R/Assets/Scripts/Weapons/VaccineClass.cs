@@ -36,10 +36,25 @@ public class VaccineClass : MonoBehaviour {
         get { return Health; }
     }
 
-    //public int CharacterIU
-    //{
-    //    set { CharacterInUse[1] = value;}
-    //    get { return CharacterInUse[1]; }
-    
-    //}
+    public int CharacterIU
+    {
+        set { CharacterInUse[1] = value;}
+        get { return CharacterInUse[1]; }
+        //set
+        //{
+        //    for (int x = 0; x <= CharacterInUse.Length; x++ )
+        //    {
+        //      if(CharacterInUse[x] == 0)
+        //      {
+        //          //x = Character[0];
+        //      }
+        //      else if (CharacterInUse[x] == 1)
+        //      {
+
+        //      }
+        //    }
+        //}
+
+        //get { return CharacterInUse[x]; }
+    }
 }

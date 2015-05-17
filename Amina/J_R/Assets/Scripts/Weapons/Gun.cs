@@ -8,11 +8,11 @@ public class Gun : Weapon {
     Gun gun1 = new Gun
     {
         Name = "Assualt Rifle",
-        Weight = 5,
+        Weight = 2,
         itemId = 1,
         Rarity = RarityTypes.Rare,
-        fireRate = 4.0f,
-        reloadTime = 3.0f,
+        fireRate = 2.0f,
+        reloadTime = .25f,
         Ammunition = 20,
         CharacterInUse = 0
     };
@@ -20,24 +20,24 @@ public class Gun : Weapon {
     Gun gun2 = new Gun
     {
         Name = "Pistol",
-        Weight = 3,
-        itemId = 2,
+        Weight = 2,
+        itemId = 1,
         Rarity = RarityTypes.Common,
-        fireRate = 2.0f,
+        fireRate = 1.0f,
         reloadTime = .5f,
-        Ammunition = 10,
+        Ammunition = 5,
         CharacterInUse = 1
     };
 
     Gun gun3 = new Gun
     {
-        Name = "Machine Gun",
-        Weight = 1,
-        itemId = 3,
-        Rarity = RarityTypes.Average,
-        fireRate = 5.0f,
-        reloadTime = 2.5f,
-        Ammunition = 15,
+        Name = "Pistol",
+        Weight = 2,
+        itemId = 1,
+        Rarity = RarityTypes.Common,
+        fireRate = 1.0f,
+        reloadTime = .5f,
+        Ammunition = 5,
         CharacterInUse = 1
     };
 	// Use this for initialization
