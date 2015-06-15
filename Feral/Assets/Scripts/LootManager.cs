@@ -13,7 +13,6 @@ public class LootManager : MonoBehaviour
     
     void Awake()
     {
-
         // Create Item Data Database
         // Weapons
         ItemDataDB.Add("Pistol", new InventoryItemData("Pistol", "It's a gun you dumbass", "10 Pistol Bullets"));
@@ -119,7 +118,7 @@ public class LootManager : MonoBehaviour
             });
             ///////////////JACKSON END
         }
-        if (GameManager.CharacterSelected == Enums.Character.Ryley)
+        else if (GameManager.CharacterSelected == Enums.Character.Ryley)
         {
             ItemChanceDB.Add("Tiger", new ItemChanceData[] 
             {

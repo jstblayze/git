@@ -4,14 +4,21 @@ using System.Collections;
 public class SelectionScreen : MonoBehaviour 
 {
     private Enums.Character Selection = Enums.Character.None;
+    GameManager GameManager;
+    public void Awake()
+    {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
     public void CharacterPressed(string CharacterSelected)
     {
+        Debug.Log("Character Selected -> " + CharacterSelected);
         Enums.Character Character = (Enums.Character)System.Enum.Parse(typeof(Enums.Character), CharacterSelected);
-        GameManager.GM.SetCharacterSelected(Character);
+        Debug.Log("Character Parsed -> " + Character.ToString());
+        GameManager.SetCharacterSelected(Character);
     }
     public void PlayPressed(string SceneToLoad)
     {
-        GameManager.GM.LoadScene(SceneToLoad);
+        GameManager.LoadScene(SceneToLoad);
     }
     public void OnBackPresed()
     {

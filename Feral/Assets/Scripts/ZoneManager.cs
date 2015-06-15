@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿//Author: Amina Khalique
+using UnityEngine;
 using System.Collections;
-
 public class ZoneManager : MonoBehaviour 
 {
+    private GameManager GameManager; 
+    
     public string ZoneName;
     public Vector3 EntrancePoint;
    
@@ -28,13 +30,14 @@ public class ZoneManager : MonoBehaviour
     private Vector3 LoadPoint;
 
     public static Character Character;
-
     public void Awake()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         ActiveUI = Enums.ActiveUI.None;
-        if (GameManager.GM.GetSavedPosition() != null) // A Saved Position Exists
+        if (GameManager.GetSavedPosition() != null) // A Saved Position Exists
         {
-            LoadPoint = GameManager.GM.GetSavedPosition();
+            LoadPoint = GameManager.GetSavedPosition();
         }
         else
         {
@@ -58,7 +61,7 @@ public class ZoneManager : MonoBehaviour
 
         Character = GameObject.Find("Robot").GetComponent<Character>();
     }
-    void Update()  // This might need to be moved to an "inputs" script or something 
+    void Update()
     {
         // Exit any pop up screen
         if (Input.GetKeyDown(KeyCode.Escape))

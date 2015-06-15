@@ -46,7 +46,7 @@ public class InventoryScreen : MonoBehaviour
         List<InventoryItemData> Items = new List<InventoryItemData>();
         List<InventoryItemData> Maps = new List<InventoryItemData>();
 
-        GameManager.CharacterSelected = Enums.Character.Ryley; // SET IT
+        //GameManager.CharacterSelected = Enums.Character.Ryley; // SET IT
         if(GameManager.CharacterSelected == Enums.Character.Jackson)
         {
             // Add to weapons
